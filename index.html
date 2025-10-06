@@ -12,481 +12,895 @@
         }
         
         body {
-            font-family: 'Georgia', serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
             line-height: 1.6;
-            color: #2c3e50;
+            color: #1a1a1a;
             background: #ffffff;
+            padding-top: 72px;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, body {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+        
+        .preheader-bar {
+            background: linear-gradient(135deg, #1A1A2E 0%, #2D1B3D 100%);
+            padding: 18px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+        }
+
+        .preheader-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .preheader-text {
+            color: #FFFFFF;
+            font-size: 15px;
+            font-weight: 500;
+            flex: 1;
+        }
+
+        .preheader-hook {
+            color: #FFC966;
+            font-weight: 700;
+        }
+
+        .preheader-cta {
+            background: linear-gradient(135deg, #FF6B6B 0%, #EE5A6F 100%);
+            color: #FFFFFF;
+            padding: 12px 32px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 14px;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .preheader-cta:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            body { padding-top: 72px; }
+            .preheader-content {
+                padding: 0 20px;
+                gap: 16px;
+            }
+            .preheader-text {
+                font-size: 13px;
+                line-height: 1.4;
+            }
+            .preheader-long { display: none; }
+            .preheader-short { display: inline !important; }
+            .preheader-cta {
+                padding: 10px 20px;
+                font-size: 13px;
+            }
         }
         
         .container {
-            max-width: 650px;
+            max-width: 1100px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 0 40px;
         }
-        
-        .header-space {
-            height: 20px;
-        }
-        
-        .pre-headline {
+
+        .hero-section {
             text-align: center;
-            font-size: 0.9rem;
-            color: #e74c3c;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 15px;
-            background: #fff2f2;
-            padding: 8px 15px;
-            border-radius: 20px;
+            padding: 120px 0 140px;
+            position: relative;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, rgba(255, 107, 107, 0.06), transparent 70%);
+            z-index: 0;
+            pointer-events: none;
         }
         
         .headline {
-            font-size: 2.8rem;
-            font-weight: bold;
-            color: #2c3e50;
-            margin-bottom: 20px;
+            font-size: 4.5rem;
+            font-weight: 900;
+            color: #1A1A2E;
+            margin-bottom: 32px;
             line-height: 1.1;
-            text-align: center;
-            letter-spacing: -1px;
+            letter-spacing: -0.03em;
+            position: relative;
+            z-index: 1;
         }
         
         .headline-accent {
-            color: #e74c3c;
+            background: linear-gradient(135deg, #FF6B6B 0%, #EE5A6F 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
         .sub-headline {
-            font-size: 1.15rem;
-            color: #27ae60;
-            margin-bottom: 30px;
-            line-height: 1.4;
+            font-size: 1.5rem;
+            color: #374151;
+            line-height: 1.7;
+            font-weight: 500;
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .sub-headline strong {
+            color: #1a1a1a;
+            font-weight: 700;
+        }
+
+        .story-visual {
+            max-width: 1100px;
+            margin: 0 auto 180px;
+        }
+
+        .story-container {
+            background: #F9FAFB;
+            border-radius: 16px;
+            padding: 80px 60px;
+        }
+
+        .story-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .story-box {
             text-align: center;
+            padding: 56px 40px;
+            border-radius: 12px;
+            background: white;
+            transition: transform 0.2s ease;
+        }
+
+        @media (hover: hover) {
+            .story-box:hover {
+                transform: translateY(-4px);
+            }
+        }
+
+        .story-icon {
+            font-size: 3.5rem;
+            margin-bottom: 28px;
+            display: block;
+        }
+
+        .story-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .old-story .story-label { color: #DC2626; }
+        .new-story .story-label { color: #059669; }
+
+        .story-text {
+            font-size: 1.15rem;
+            line-height: 1.7;
+            color: #1a1a1a;
+        }
+
+        .market-showcase {
+            background: linear-gradient(135deg, #1A1A2E 0%, #2D1B3D 100%);
+            padding: 100px 80px;
+            border-radius: 16px;
+            margin: 180px 0;
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .market-showcase::before {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255,107,107,0.06), transparent);
+            top: -200px;
+            right: -200px;
+            border-radius: 50%;
+        }
+
+        .market-showcase h3 {
+            font-size: 2.5rem;
+            margin-bottom: 64px;
+            font-weight: 900;
+            position: relative;
+            z-index: 1;
+            line-height: 1.3;
+        }
+
+        .market-visual {
+            position: relative;
+            z-index: 1;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .growth-bars {
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            height: 320px;
+            margin: 48px 0;
+            gap: 48px;
+        }
+
+        .bar {
+            width: 140px;
+            background: linear-gradient(180deg, rgba(255,107,107,0.3) 0%, rgba(255,107,107,0.85) 100%);
+            border-radius: 8px 8px 0 0;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding-top: 20px;
+            transition: all 0.2s ease;
+        }
+
+        .bar:hover {
+            transform: translateY(-4px);
+        }
+
+        .bar-1 { height: 30%; }
+        .bar-2 { height: 55%; }
+        .bar-3 { 
+            height: 100%; 
+            background: linear-gradient(180deg, rgba(124,58,237,0.3) 0%, rgba(124,58,237,0.9) 100%);
+        }
+
+        .bar-value {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .bar-label {
+            position: absolute;
+            bottom: -40px;
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.7);
             font-weight: 600;
         }
-        
-        .story-contrast {
-            background: linear-gradient(135deg, #fef5e7, #fef3e2);
-            padding: 30px;
+
+        .market-insight {
+            margin-top: 72px;
+            padding: 32px 40px;
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(10px);
             border-radius: 12px;
-            margin: 25px 0;
-            border-left: 5px solid #f39c12;
+            position: relative;
+            z-index: 1;
         }
-        
-        .old-story {
-            margin-bottom: 20px;
-        }
-        
-        .old-story h3 {
-            color: #e74c3c;
-            font-size: 1.1rem;
-            margin-bottom: 10px;
-        }
-        
-        .old-story p {
-            color: #2c3e50;
-            font-size: 1.0rem;
-            line-height: 1.5;
-        }
-        
-        .new-story h3 {
-            color: #27ae60;
-            font-size: 1.1rem;
-            margin-bottom: 10px;
-        }
-        
-        .new-story p {
-            color: #2c3e50;
-            font-size: 1.0rem;
-            line-height: 1.5;
-        }
-        
-        .opportunity-window {
-            background: #e8f4fd;
-            padding: 25px;
-            border-radius: 12px;
-            margin: 25px 0;
-            border-left: 4px solid #3498db;
-            text-align: center;
-        }
-        
-        .opportunity-window h3 {
-            color: #2980b9;
-            font-size: 1.3rem;
-            margin-bottom: 15px;
-        }
-        
-        .opportunity-window p {
-            color: #2c3e50;
-            font-size: 1.0rem;
-            line-height: 1.5;
-        }
-        
-        .market-stat {
-            font-size: 1.4rem;
-            font-weight: bold;
-            color: #e74c3c;
-            margin: 10px 0;
-        }
-        
-        .body-copy {
-            font-size: 1.05rem;
-            margin-bottom: 25px;
-            color: #2c3e50;
-            text-align: left;
-        }
-        
-        .body-copy p {
-            margin-bottom: 18px;
-        }
-        
-        .body-copy strong {
-            color: #e74c3c;
-        }
-        
-        .method-teaser {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            padding: 30px;
-            border-radius: 15px;
-            margin: 30px 0;
-            text-align: center;
-        }
-        
-        .method-teaser h3 {
-            font-size: 1.6rem;
-            margin-bottom: 15px;
-            color: #f39c12;
-        }
-        
-        .method-teaser .tagline {
-            font-size: 1.1rem;
-            margin-bottom: 20px;
-            color: #ecf0f1;
-            font-style: italic;
-        }
-        
-        .method-teaser p {
-            font-size: 1.0rem;
-            line-height: 1.6;
-            color: #ecf0f1;
-        }
-        
-        .behind-scenes {
-            background: #f8f9fa;
-            padding: 25px;
-            border-radius: 12px;
-            margin: 25px 0;
-            text-align: center;
-            border: 2px solid #dee2e6;
-        }
-        
-        .behind-scenes h3 {
-            color: #2c3e50;
-            margin-bottom: 15px;
+
+        .market-insight p {
             font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 16px;
         }
-        
-        .behind-scenes p {
-            color: #6c757d;
-            font-size: 1.0rem;
-            line-height: 1.5;
-            margin-bottom: 10px;
+
+        .market-insight p:last-child {
+            margin-bottom: 0;
         }
-        
-        .waitlist-value {
-            background: linear-gradient(135deg, #f093fb, #f5576c);
-            color: white;
-            padding: 30px;
-            border-radius: 15px;
-            margin: 30px 0;
+
+        .market-insight p strong,
+        .market-insight p em {
+            font-weight: 800;
+            font-style: normal;
+        }
+
+        .highlight-stat {
+            color: #FFB84D;
+            font-weight: 800;
+            font-size: 1.3rem;
+            display: block;
+            margin-top: 24px;
+        }
+
+        .method-section {
+            background: #F9FAFB;
+            padding: 100px 80px;
+            border-radius: 16px;
+            margin: 180px 0;
+        }
+
+        .method-section h3 {
+            font-size: 3rem;
             text-align: center;
-        }
-        
-        .waitlist-value h3 {
-            font-size: 1.5rem;
             margin-bottom: 20px;
+            font-weight: 900;
+            color: #1A1A2E;
+            line-height: 1.2;
         }
-        
-        .vip-benefits {
-            background: rgba(255, 255, 255, 0.15);
-            padding: 25px;
-            border-radius: 10px;
-            margin: 20px 0;
-            text-align: left;
-        }
-        
-        .vip-benefits h4 {
-            color: #f39c12;
-            margin-bottom: 15px;
+
+        .method-tagline {
             text-align: center;
-            font-size: 1.1rem;
+            font-size: 1.4rem;
+            color: #7C3AED;
+            font-weight: 600;
+            font-style: italic;
+            margin-bottom: 80px;
+        }
+
+        .method-steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 48px;
+            margin-top: 48px;
+        }
+
+        .method-step {
+            text-align: center;
+            padding: 48px 32px;
+            border-radius: 12px;
+            background: white;
+            transition: transform 0.2s ease;
+        }
+
+        @media (hover: hover) {
+            .method-step:hover {
+                transform: translateY(-4px);
+            }
+        }
+
+        .step-number {
+            width: 72px;
+            height: 72px;
+            background: linear-gradient(135deg, #7C3AED 0%, #9333EA 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 900;
+            margin: 0 auto 24px;
+            color: white;
+        }
+
+        .step-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .step-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #1A1A2E;
+        }
+
+        .step-desc {
+            font-size: 1rem;
+            color: #4a5568;
+            line-height: 1.6;
+        }
+
+        .origin-story {
+            max-width: 900px;
+            margin: 180px auto;
+            padding: 48px 56px;
+            background: linear-gradient(135deg, #FEF3F2 0%, #FEE2E2 100%);
+            border-radius: 12px;
+            border-left: 6px solid #EF4444;
+            text-align: center;
+        }
+
+        .origin-story p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #1a1a1a;
+        }
+
+        .origin-story strong {
+            color: #1A1A2E;
+            font-weight: 800;
         }
         
-        .benefit-item {
+        .waitlist-section {
+            margin: 180px 0;
+        }
+
+        .waitlist-section h3 {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 28px;
+            font-weight: 900;
+            color: #1A1A2E;
+            line-height: 1.2;
+        }
+
+        .waitlist-intro {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #4a5568;
+            margin-bottom: 64px;
+            line-height: 1.7;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .benefits-showcase {
+            background: #F9FAFB;
+            padding: 80px;
+            border-radius: 16px;
+        }
+        
+        .benefits-showcase h4 {
+            color: #1A1A2E;
+            margin-bottom: 56px;
+            text-align: center;
+            font-size: 1.8rem;
+            font-weight: 800;
+        }
+        
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+        }
+
+        .benefit-card {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
             display: flex;
             align-items: flex-start;
-            margin-bottom: 12px;
-            padding: 8px 0;
+            gap: 20px;
+            transition: transform 0.2s ease;
         }
-        
-        .benefit-item .check {
-            color: #f39c12;
-            font-weight: bold;
-            margin-right: 12px;
+
+        @media (hover: hover) {
+            .benefit-card:hover {
+                transform: translateY(-2px);
+            }
+        }
+
+        .benefit-icon {
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+
+        .benefit-text {
+            flex: 1;
+        }
+
+        .benefit-text strong {
+            color: #1A1A2E;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 8px;
             font-size: 1.1rem;
         }
-        
-        .benefit-item span {
-            color: rgba(255, 255, 255, 0.95);
-            font-size: 0.95rem;
-            line-height: 1.4;
+
+        .benefit-text span {
+            color: #4a5568;
+            font-size: 1rem;
+            line-height: 1.6;
         }
         
-        .urgency-section {
-            background: #fff3cd;
-            padding: 20px;
+        .urgency-banner {
+            background: linear-gradient(135deg, #FEF3F2 0%, #FEE2E2 100%);
+            padding: 48px 56px;
             border-radius: 12px;
-            margin: 25px 0;
-            border-left: 4px solid #ffc107;
+            margin: 180px 0;
             text-align: center;
+            border-left: 6px solid #EF4444;
         }
         
-        .urgency-section h4 {
-            color: #856404;
-            font-size: 1.2rem;
-            margin-bottom: 10px;
+        .urgency-banner h4 {
+            color: #1A1A2E;
+            font-size: 1.8rem;
+            margin-bottom: 16px;
+            font-weight: 800;
         }
         
-        .urgency-section p {
-            color: #856404;
-            font-size: 1.0rem;
-            line-height: 1.4;
+        .urgency-banner p {
+            color: #4a5568;
+            font-size: 1.15rem;
+            line-height: 1.7;
         }
         
         .cta-section {
-            background: linear-gradient(135deg, #2c3e50, #34495e);
+            background: linear-gradient(135deg, #1A1A2E 0%, #2D1B3D 100%);
             color: white;
-            padding: 40px 30px;
-            border-radius: 20px;
-            margin: 35px 0;
+            padding: 100px 80px;
+            border-radius: 16px;
+            margin: 180px 0 80px;
             text-align: center;
-            position: relative;
-            box-shadow: 0 15px 35px rgba(44, 62, 80, 0.3);
-        }
-        
-        .vip-badge {
-            position: absolute;
-            top: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #e74c3c;
-            color: white;
-            padding: 10px 25px;
-            border-radius: 25px;
-            font-size: 0.85rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
         }
         
         .cta-headline {
-            font-size: 1.8rem;
-            margin-bottom: 15px;
-            font-weight: bold;
-            line-height: 1.3;
+            font-size: 3rem;
+            margin-bottom: 24px;
+            font-weight: 900;
+            line-height: 1.2;
         }
         
         .cta-subtext {
-            color: #bdc3c7;
-            font-size: 1.0rem;
-            margin-bottom: 25px;
-            line-height: 1.4;
+            color: #9CA3AF;
+            font-size: 1.25rem;
+            margin-bottom: 48px;
+            line-height: 1.6;
         }
         
         .cta-button {
-            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            background: linear-gradient(135deg, #FF6B6B 0%, #EE5A6F 100%);
             color: white;
-            padding: 20px 40px;
+            padding: 24px 64px;
             font-size: 1.25rem;
-            font-weight: bold;
+            font-weight: 800;
             border: none;
-            border-radius: 12px;
+            border-radius: 8px;
             cursor: pointer;
-            width: 100%;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 25px rgba(231, 76, 60, 0.4);
+            transition: all 0.2s ease;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin: 20px 0;
+            letter-spacing: 0.5px;
+            font-family: inherit;
+            display: inline-block;
         }
         
         .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 35px rgba(231, 76, 60, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(255, 107, 107, 0.3);
+        }
+
+        .cta-button:active {
+            transform: translateY(0);
         }
         
         .what-happens {
-            margin-top: 15px;
-            padding: 15px;
-            background: rgba(52, 73, 94, 0.3);
-            border-radius: 8px;
-            font-size: 0.9rem;
-            color: #bdc3c7;
+            margin-top: 40px;
+            padding: 32px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            font-size: 1rem;
+            color: #D1D5DB;
             text-align: center;
-            line-height: 1.4;
+            line-height: 1.7;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
         }
-        
-        .honest-disclaimer {
-            font-size: 0.95rem;
-            color: #7f8c8d;
-            margin-top: 30px;
-            text-align: center;
-            line-height: 1.5;
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 10px;
-            font-style: italic;
+
+        .what-happens strong {
+            color: #ffffff;
+        }
+
+        @media (max-width: 1024px) {
+            .container { padding: 0 32px; }
+            .headline { font-size: 3.5rem; }
+            .market-showcase, .method-section, .benefits-showcase, .cta-section {
+                padding: 80px 60px;
+            }
+            .origin-story, .urgency-banner {
+                padding: 40px 48px;
+            }
         }
         
         @media (max-width: 768px) {
-            .headline {
-                font-size: 2.2rem;
+            body { padding-top: 0; }
+            .container { padding: 0 24px; }
+            .headline { 
+                font-size: 2.75rem;
+                margin-bottom: 24px;
             }
-            .sub-headline {
-                font-size: 1.0rem;
+            .hero-section { padding: 80px 0 100px; }
+            .sub-headline { 
+                font-size: 1.25rem;
             }
-            .body-copy {
-                font-size: 1.0rem;
+            .story-visual { margin-bottom: 120px; }
+            .story-container { padding: 60px 32px; }
+            .story-grid {
+                grid-template-columns: 1fr;
+                gap: 60px;
             }
-            .container {
-                padding: 15px;
+            .story-box { padding: 44px 32px; }
+            .market-showcase {
+                padding: 72px 40px;
+                margin: 120px 0;
             }
+            .market-showcase h3 {
+                font-size: 2rem;
+                margin-bottom: 48px;
+            }
+            .growth-bars { 
+                height: 280px;
+                gap: 32px;
+            }
+            .bar { width: 100px; }
+            .market-insight { padding: 28px 32px; }
+            .market-insight p { font-size: 1.05rem; }
+            .method-section {
+                padding: 72px 40px;
+                margin: 120px 0;
+            }
+            .method-section h3 {
+                font-size: 2.25rem;
+            }
+            .method-tagline {
+                font-size: 1.2rem;
+                margin-bottom: 56px;
+            }
+            .method-steps {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+            .method-step { padding: 36px 28px; }
+            .origin-story {
+                margin: 120px auto;
+                padding: 36px 32px;
+            }
+            .origin-story p { font-size: 1.1rem; }
+            .waitlist-section {
+                margin: 120px 0;
+            }
+            .waitlist-section h3 {
+                font-size: 2.25rem;
+            }
+            .waitlist-intro {
+                font-size: 1.1rem;
+                margin-bottom: 48px;
+            }
+            .benefits-showcase {
+                padding: 56px 40px;
+            }
+            .benefits-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+            .benefit-card { padding: 32px 28px; }
+            .urgency-banner {
+                padding: 36px 32px;
+                margin: 120px 0;
+            }
+            .urgency-banner h4 { font-size: 1.5rem; }
             .cta-section {
-                padding: 35px 25px;
+                padding: 72px 40px;
+                margin: 120px 0 60px;
             }
-            .method-teaser {
-                padding: 25px 20px;
+            .cta-headline {
+                font-size: 2.25rem;
             }
+            .cta-subtext {
+                font-size: 1.1rem;
+            }
+            .cta-button {
+                padding: 20px 48px;
+                font-size: 1.1rem;
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .headline { font-size: 2.25rem; }
+            .sub-headline { font-size: 1.15rem; }
+            .container { padding: 0 20px; }
+            .hero-section { padding: 60px 0 80px; }
+            .story-visual { margin-bottom: 100px; }
+            .story-container { padding: 48px 24px; }
+            .story-box { padding: 36px 24px; }
+            .market-showcase, .method-section, .benefits-showcase, .cta-section {
+                padding: 56px 28px;
+            }
+            .origin-story, .urgency-banner {
+                padding: 32px 24px;
+            }
+            .growth-bars {
+                gap: 24px;
+                height: 260px;
+            }
+            .bar { width: 80px; }
+            .bar-value { font-size: 1.25rem; }
+            .step-number {
+                width: 60px;
+                height: 60px;
+                font-size: 1.75rem;
+            }
+            .step-icon { font-size: 2rem; }
         }
     </style>
 </head>
 <body>
+    <div class="preheader-bar">
+        <div class="preheader-content">
+            <p class="preheader-text">
+                <span class="preheader-hook">While others say "it's too late"...</span> 
+                regular people are banking $3-10K/month from this $550 billion opportunity
+            </p>
+            <a href="https://icc-d404ff.circle.so/join?invitation_token=8c8667fc5b45772034596b6eb21a7922db3e5439-3d7d510f-a427-4c06-bd7a-57ba6906d777" class="preheader-cta" target="_blank">Join VIP List</a>
+        </div>
+    </div>
+
     <div class="container">
-        <div class="header-space"></div>
-        
-        <div class="pre-headline">
-            For Busy People Who Want Freedom—Without the Fake Expert Act
+        <div class="hero-section">
+            <h1 class="headline">
+                What If You Could Quit Your Job Without Becoming a <span class="headline-accent">"Guru"?</span>
+            </h1>
+            
+            <h2 class="sub-headline">
+                Earn $3K–$10K/month connecting people to proven products. <strong>Zero expertise needed.</strong>
+            </h2>
         </div>
         
-        <h1 class="headline">
-            What If You Could Quit Your Job Without Becoming a <span class="headline-accent">"Guru"?</span>
-        </h1>
-        
-        <h2 class="sub-headline">
-            The fastest path to freedom is building a business around what you already love
-        </h2>
-        
-        <div class="story-contrast">
-            <div class="old-story">
-                <h3>The old story:</h3>
-                <p>You must become a guru, create a huge following, and grind for years before you see results.</p>
+        <div class="story-visual">
+            <div class="story-container">
+                <div class="story-grid">
+                    <div class="story-box old-story">
+                        <span class="story-icon">😓</span>
+                        <div class="story-label">The old story</div>
+                        <p class="story-text">Become a guru. Build a massive audience. Create endless content. Hope someone buys.</p>
+                    </div>
+                    
+                    <div class="story-box new-story">
+                        <span class="story-icon">🚀</span>
+                        <div class="story-label">The new story</div>
+                        <p class="story-text">Find proven products. Connect the right people. Collect commissions. Done.</p>
+                    </div>
+                </div>
             </div>
+        </div>
+        
+        <div class="market-showcase">
+            <h3>The $550 Billion Reason to Ignore the "It's Saturated" Crowd</h3>
             
-            <div class="new-story">
-                <h3>The new story:</h3>
-                <p>You can leverage the explosive growth of the digital information industry by connecting people with proven solutions they already want.</p>
+            <div class="market-visual">
+                <div class="growth-bars">
+                    <div class="bar bar-1">
+                        <div class="bar-value">$107B</div>
+                        <div class="bar-label">2015</div>
+                    </div>
+                    <div class="bar bar-2">
+                        <div class="bar-value">$325B</div>
+                        <div class="bar-label">Today</div>
+                    </div>
+                    <div class="bar bar-3">
+                        <div class="bar-value">$880B</div>
+                        <div class="bar-label">2033</div>
+                    </div>
+                </div>
+                
+                <div class="market-insight">
+                    <p>Ten years ago: <em><strong>"Too late. It's saturated."</strong></em></p>
+                    <p>Those who believed them watched the market <strong>triple</strong> from the sidelines.</p>
+                    <p>By 2033: <strong>$880 billion</strong>. That's <strong>$550B in NEW money</strong>, more than double the last decade.</p>
+                    <p class="highlight-stat">Ready to claim your share, or still sitting it out?</p>
+                </div>
             </div>
         </div>
         
-        <div class="opportunity-window">
-            <h3>Why This Opportunity Window Won't Stay Open Forever</h3>
-            <p>The digital education market has grown from <span class="market-stat">$100 billion</span> to over <span class="market-stat">$300 billion</span> in just over a decade, with projections to exceed <span class="market-stat">$500 billion</span> soon.</p>
-            <p><strong>Right now, there's a massive opportunity for regular people to build businesses by connecting others with proven digital solutions—before this space gets oversaturated.</strong></p>
-        </div>
-        
-        <div class="body-copy">
-            <p><strong>But here's what most people don't realize:</strong></p>
-            
-            <p>While everyone else is trying to become the next big guru, you can quietly build income by being the trusted connector in niches you actually care about.</p>
-            
-            <p>You don't create anything. You don't need to be famous. You don't even need to show your face.</p>
-            
-            <p><strong>You simply guide people to digital solutions that genuinely help them—and earn commissions when they find value.</strong></p>
-        </div>
-        
-        <div class="method-teaser">
+        <div class="method-section">
             <h3>The "Connect & Collect" Method</h3>
-            <p class="tagline">"You don't have to be the destination. You just build the connection."</p>
-            <p>Instead of being the expert, you become the bridge between experts and the people who need their help. This isn't another course about courses—it's a complete system for busy people who want to build something meaningful.</p>
-        </div>
-        
-        <div class="behind-scenes">
-            <h3>I'm Finalizing This System Right Now</h3>
-            <p>After working one-on-one with nearly 100 people over the past few years, I've identified exactly what works and what doesn't.</p>
-            <p>Now I'm systematizing everything into a complete program—but I'm only accepting a limited number of people into the priority launch group.</p>
-        </div>
-        
-        <div class="waitlist-value">
-            <h3>Get Priority VIP Access</h3>
-            <p>I'm building a small group of serious people who want first access to this system when it launches. This isn't just another email list—it's your VIP pass to everything.</p>
+            <p class="method-tagline">"You're not the teacher. You're the matchmaker."</p>
             
-            <div class="vip-benefits">
-                <h4>🎯 Priority VIP Members Get:</h4>
-                <div class="benefit-item">
-                    <span class="check">✓</span>
-                    <span><strong>First access</strong> when enrollment opens (before the public)</span>
+            <div class="method-steps">
+                <div class="method-step">
+                    <div class="step-number">1</div>
+                    <span class="step-icon">🔍</span>
+                    <div class="step-title">Find</div>
+                    <p class="step-desc">Discover quality digital products in niches you care about</p>
                 </div>
-                <div class="benefit-item">
-                    <span class="check">✓</span>
-                    <span><strong>Exclusive early-bird pricing</strong> (significant savings)</span>
+                <div class="method-step">
+                    <div class="step-number">2</div>
+                    <span class="step-icon">🤝</span>
+                    <div class="step-title">Connect</div>
+                    <p class="step-desc">Guide people to solutions that genuinely help them</p>
                 </div>
-                <div class="benefit-item">
-                    <span class="check">✓</span>
-                    <span><strong>Bonus training modules</strong> not available elsewhere</span>
+                <div class="method-step">
+                    <div class="step-number">3</div>
+                    <span class="step-icon">💵</span>
+                    <div class="step-title">Collect</div>
+                    <p class="step-desc">Earn commissions when they find value</p>
                 </div>
-                <div class="benefit-item">
-                    <span class="check">✓</span>
-                    <span><strong>Behind-the-scenes updates</strong> as the system develops</span>
-                </div>
-                <div class="benefit-item">
-                    <span class="check">✓</span>
-                    <span><strong>Private community access</strong> with other serious members</span>
-                </div>
-                <div class="benefit-item">
-                    <span class="check">✓</span>
-                    <span><strong>Additional money-making methods</strong> and resources</span>
+            </div>
+        </div>
+
+        <div class="origin-story">
+            <p><strong>I'm Mike Marino.</strong> I was a full-time psychiatric nurse, pulling long shifts and dealing with burnout. I started building income through connecting people to products as a side hustle. Within 8 months, I replaced my nursing income. Now I bring in $18K+/month. After coaching 100+ others, I'm building this system so you don't have to figure it out the hard way.</p>
+        </div>
+        
+        <div class="waitlist-section">
+            <h3>Join The Priority List</h3>
+            <p class="waitlist-intro">After coaching 100+ people through building their Connect & Collect businesses, I'm putting the complete process into a step-by-step system. Join the Priority List to get early access when doors open later this month.</p>
+            
+            <div class="benefits-showcase">
+                <h4>🎯 Priority List Members Get:</h4>
+                <div class="benefits-grid">
+                    <div class="benefit-card">
+                        <span class="benefit-icon">🎟️</span>
+                        <div class="benefit-text">
+                            <strong>First access</strong>
+                            <span>Enroll before public launch</span>
+                        </div>
+                    </div>
+                    <div class="benefit-card">
+                        <span class="benefit-icon">💎</span>
+                        <div class="benefit-text">
+                            <strong>Launch pricing</strong>
+                            <span>Lock in best available pricing</span>
+                        </div>
+                    </div>
+                    <div class="benefit-card">
+                        <span class="benefit-icon">📚</span>
+                        <div class="benefit-text">
+                            <strong>Bonus modules</strong>
+                            <span>3 exclusive trainings</span>
+                        </div>
+                    </div>
+                    <div class="benefit-card">
+                        <span class="benefit-icon">👀</span>
+                        <div class="benefit-text">
+                            <strong>Behind-the-scenes</strong>
+                            <span>Updates leading to launch</span>
+                        </div>
+                    </div>
+                    <div class="benefit-card">
+                        <span class="benefit-icon">🤝</span>
+                        <div class="benefit-text">
+                            <strong>Private community</strong>
+                            <span>Direct access to me + members</span>
+                        </div>
+                    </div>
+                    <div class="benefit-card">
+                        <span class="benefit-icon">🎁</span>
+                        <div class="benefit-text">
+                            <strong>Extra income methods</strong>
+                            <span>6 additional monetization strategies</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         
-        <div class="urgency-section">
-            <h4>⏰ Limited Priority Spots Available</h4>
-            <p>I'm only accepting serious people who are ready to take action. Once we reach capacity for the launch group, the priority list closes and you'll have to wait for public enrollment (at full price).</p>
-        </div>
-        
-        <div class="body-copy">
-            <p><strong>Look, I get it.</strong> You've probably been burned before by empty promises.</p>
-            
-            <p>That's exactly why this is different. No hype. No manufactured scarcity. Just a real opportunity to be part of something that actually works—if you're serious about building a business around topics you care about.</p>
+        <div class="urgency-banner">
+            <h4>⏰ Priority List Closes at Launch</h4>
+            <p>Once doors open, this Priority List closes and you'll pay standard pricing like everyone else. Join now to lock in early access and special launch bonuses.</p>
         </div>
         
         <div class="cta-section">
-            <div class="vip-badge">Priority VIP List</div>
-            
-            <h3 class="cta-headline">Secure Your Priority VIP Access</h3>
-            <p class="cta-subtext">Join the exclusive group that gets first access, maximum savings, and bonus resources when the Connect & Collect system launches</p>
+            <h3 class="cta-headline">Join The Priority List</h3>
+            <p class="cta-subtext">Get early access when doors open later this month plus exclusive launch bonuses</p>
             
             <button class="cta-button" onclick="joinWaitlist()">
-                Get Priority VIP Access
+                Join Priority List
             </button>
             
             <div class="what-happens">
-                <strong>What happens next:</strong> You'll get immediate access to our private VIP community where I share development updates and exclusive insights. When the system launches, you'll be first in line with the best pricing and exclusive bonuses.
+                <strong>What happens next:</strong> You'll join the Priority List and get updates as we approach launch. When doors open later this month, you'll get early access before the public launch plus special pricing and exclusive bonuses.
             </div>
-        </div>
-        
-        <div class="honest-disclaimer">
-            <p><strong>This is for serious people only.</strong> If you're looking for get-rich-quick schemes or magic buttons, this isn't for you. But if you want to build a real business around topics you're passionate about—and you're willing to put in the work—then this priority access could change everything.</p>
         </div>
     </div>
     
@@ -494,40 +908,6 @@
         function joinWaitlist() {
             window.open('https://icc-d404ff.circle.so/join?invitation_token=8c8667fc5b45772034596b6eb21a7922db3e5439-3d7d510f-a427-4c06-bd7a-57ba6906d777', '_blank');
         }
-        
-        // Enhanced button interactions
-        const ctaButton = document.querySelector('.cta-button');
-        
-        ctaButton.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-3px) scale(1.02)';
-        });
-        
-        ctaButton.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0) scale(1)';
-        });
-        
-        // Smooth scroll animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -30px 0px'
-        };
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-        
-        // Observe sections for smooth entrance
-        document.querySelectorAll('.story-contrast, .opportunity-window, .method-teaser, .waitlist-value, .cta-section').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)';
-            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(el);
-        });
     </script>
 </body>
 </html>
