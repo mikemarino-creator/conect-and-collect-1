@@ -3,760 +3,2697 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Recurring Commission Formula - Priority List</title>
+    <title>Commission Kickstart - $17 | AI-Powered Commission System</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --primary-900: #1E3A8A;
+            --primary-600: #2563EB;
+            --primary-100: #DBEAFE;
+            --primary-50: #EFF6FF;
+            --accent-600: #1E3A8A;
+            --accent-hover: #2563EB;
+            --success-50: #ECFDF5;
+            --success-500: #10B981;
+            --neutral-50: #F9FAFB;
+            --neutral-100: #F3F4F6;
+            --neutral-200: #E5E7EB;
+            --neutral-400: #9CA3AF;
+            --neutral-500: #6B7280;
+            --neutral-600: #4B5563;
+            --neutral-700: #374151;
+            --neutral-900: #111827;
+            --warning-50: #FEF3C7;
+            --warning-600: #D97706;
+            --space-2: 16px;
+            --space-3: 24px;
+            --space-4: 32px;
+            --space-5: 40px;
+            --space-6: 48px;
+            --space-8: 64px;
+            --space-10: 80px;
+            --space-12: 96px;
         }
         
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
-            line-height: 1.7;
-            color: #1e293b;
-            background: #ffffff;
-            -webkit-font-smoothing: antialiased;
-            overflow-x: hidden;
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', sans-serif;
+            line-height: 1.7; 
+            color: var(--neutral-700); 
+            background: #ffffff; 
+            font-size: 16px;
         }
-
-        @media (prefers-reduced-motion: reduce) {
-            *, body {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
+        
+        @media (min-width: 768px) { body { font-size: 18px; } }
+        
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 var(--space-3); }
+        .narrow { max-width: 900px; margin: 0 auto; }
+        .section-medium { padding: var(--space-12) var(--space-3); }
+        .section-tight { padding: var(--space-8) var(--space-3); }
+        
+        @media (max-width: 768px) { 
+            .section-medium { padding: var(--space-8) var(--space-3); }
+            .section-tight { padding: var(--space-6) var(--space-3); }
+        }
+        
+        header { 
+            background: var(--primary-900);
+            padding: var(--space-3) 0; 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 100; 
+            transition: all 0.3s ease;
+        }
+        
+        /* Sticky Header on Scroll */
+        header.scrolled {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 999;
+            background: rgba(30, 58, 138, 0.95);
+            backdrop-filter: blur(10px);
+            animation: slideDown 0.3s ease-out;
+        }
+        
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
             }
         }
         
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 80px 40px 48px;
-        }
-
-        .hero-section {
-            text-align: center;
-            padding: 0 0 100px;
-            background: linear-gradient(180deg, #fafafa 0%, #ffffff 100%);
-            margin: -80px -40px 0;
-            padding: 80px 40px 100px;
-        }
-
-        .pre-header {
-            font-size: 0.95rem;
-            text-transform: uppercase;
-            letter-spacing: 2.5px;
-            color: #14b8a6;
-            font-weight: 700;
-            margin-bottom: 28px;
+        @media (min-width: 769px) { 
+            header { position: sticky; top: 0; }
+            header.scrolled { box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15); }
         }
         
-        .headline {
-            font-size: 4.25rem;
-            font-weight: 800;
-            color: #0f172a;
-            margin-bottom: 28px;
-            line-height: 1.15;
-            letter-spacing: -0.04em;
-            overflow-wrap: break-word;
-            word-wrap: break-word;
+        .header-content { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            gap: var(--space-3);
         }
         
-        .headline-accent {
-            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .sub-headline {
-            font-size: 1.4rem;
-            color: #475569;
-            line-height: 1.7;
-            font-weight: 400;
-            font-style: italic;
-            max-width: 850px;
-            margin: 0 auto 44px;
-            overflow-wrap: break-word;
-            word-wrap: break-word;
-        }
-
-        .cta-button {
-            background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+        .logo { 
+            font-size: 32px; 
+            flex-shrink: 0;
             color: white;
-            padding: 22px 52px;
-            font-size: 1.15rem;
-            font-weight: 700;
-            border: none;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            line-height: 1;
+        }
+        
+        .enrollment-counter { 
+            color: white; 
+            font-weight: 600; 
+            font-size: 14px; 
+            text-align: center;
+            flex-grow: 1;
+        }
+        
+        .enrollment-counter-label {
+            font-size: 12px;
             text-transform: uppercase;
             letter-spacing: 1px;
-            font-family: inherit;
-            display: inline-block;
-            text-decoration: none;
-            box-shadow: 0 6px 20px rgba(249, 115, 22, 0.3);
-            min-height: 60px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
+            opacity: 0.9;
+            margin-bottom: 4px;
         }
         
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(249, 115, 22, 0.4);
-        }
-
-        .cta-button:active {
-            transform: translateY(-1px);
-        }
-
-        .cta-button:focus {
-            outline: 3px solid #fbbf24;
-            outline-offset: 3px;
-        }
-
-        .trust-line {
-            margin-top: 20px;
-            font-size: 1rem;
-            color: #64748b;
-            font-weight: 500;
-        }
-
-        .trust-badges {
+        .enrollment-counter-text {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            line-height: 1.2;
             display: flex;
-            justify-content: center;
-            gap: 24px;
-            margin-top: 32px;
-            flex-wrap: wrap;
-        }
-
-        .trust-badge {
-            display: inline-flex;
             align-items: center;
-            gap: 12px;
-            padding: 12px 24px;
-            background: white;
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: #475569;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 4px;
         }
-
-        .trust-badge-icon {
-            width: 24px;
-            height: 24px;
-            stroke: #14b8a6;
-            stroke-width: 2;
+        
+        .enrollment-progress {
+            width: 100%;
+            max-width: 200px;
+            height: 6px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 3px;
+            overflow: hidden;
+            margin: 0 auto;
+        }
+        
+        .enrollment-progress-bar {
+            height: 100%;
+            background: var(--success-500);
+            width: 0%;
+            animation: fillProgress 1.5s ease-out forwards 0.3s, progressPulse 3s ease-in-out infinite 2s;
+            border-radius: 3px;
+        }
+        
+        @keyframes fillProgress {
+            from { width: 0%; }
+            to { width: 90.6%; }
+        }
+        
+        @keyframes progressPulse {
+            0%, 100% { 
+                box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4);
+            }
+            50% { 
+                box-shadow: 0 0 0 4px rgba(16, 185, 129, 0);
+            }
+        }
+        
+        .header-cta { 
+            display: inline-block; 
+            background: white;
+            color: var(--primary-900); 
+            padding: var(--space-2) var(--space-4); 
+            border-radius: 6px; 
+            text-decoration: none; 
+            font-weight: 600; 
+            font-size: 14px;
+            transition: all 0.2s ease;
+            white-space: nowrap;
             flex-shrink: 0;
         }
-
-        .market-opportunity-section {
-            max-width: 850px;
-            margin: 80px auto;
-            position: relative;
-        }
-
-        .market-badge {
-            background: linear-gradient(135deg, #14b8a6 0%, #059669 100%);
-            color: white;
-            padding: 10px 24px;
-            border-radius: 24px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3);
-            display: inline-block;
-            margin: 0 auto 24px;
-            text-align: center;
-            width: fit-content;
-            position: relative;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .market-content {
-            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
-            border: 2px solid #bfdbfe;
-            border-radius: 12px;
-            padding: 40px;
-            text-align: left;
-        }
-
-        .market-content p {
-            font-size: 1.15rem;
-            color: #0f172a;
-            font-weight: 500;
-            line-height: 1.7;
-            margin-bottom: 20px;
-        }
-
-        .market-content p:last-child {
-            margin-bottom: 0;
-        }
-
-        .market-content strong {
-            color: #059669;
-            font-weight: 700;
-        }
-
-        .story-visual {
-            max-width: 1100px;
-            margin: 0 auto 80px;
-        }
-
-        .story-container {
-            background: #f8fafc;
-            border-radius: 16px;
-            padding: 56px 48px;
-            border: 2px solid #e2e8f0;
-        }
-
-        .story-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 56px;
-            align-items: center;
-        }
-
-        .story-box {
-            text-align: center;
-            padding: 40px;
-            background: white;
-            border-radius: 16px;
-            border: 2px solid #e2e8f0;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            position: relative;
-        }
-
-        .old-story {
-            border-left: 4px solid #8b5cf6;
-            background: linear-gradient(135deg, #faf5ff 0%, #ffffff 100%);
-        }
-
-        .new-story {
-            border-left: 4px solid #14b8a6;
-            background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%);
-        }
-
-        .story-box:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-        }
-
-        .story-icon {
-            width: 48px;
-            height: 48px;
-            margin: 0 auto 24px;
-        }
-
-        .old-story .story-icon { 
-            fill: #8b5cf6;
-            opacity: 0.9;
+        
+        .header-cta:hover { background: var(--primary-50); }
+        
+        @media (max-width: 768px) {
+            .enrollment-counter { font-size: 12px; }
+            .enrollment-counter-text { 
+                font-size: 16px;
+                gap: 3px;
+            }
+            .enrollment-counter-text span:nth-child(2) {
+                font-size: 22px; /* "47" slightly smaller on mobile but still hero */
+            }
+            .enrollment-counter-text span:nth-child(4) {
+                font-size: 18px; /* "$17" slightly smaller on mobile */
+            }
+            .header-cta { padding: 10px var(--space-2); font-size: 13px; }
+            
+            /* Mobile sticky header - simpler layout */
+            header.scrolled {
+                position: fixed;
+                padding: 12px 0;
+            }
+            
+            header.scrolled .enrollment-counter-label {
+                display: none;
+            }
+            
+            header.scrolled .enrollment-progress {
+                max-width: 150px;
+                height: 4px;
+            }
         }
         
-        .new-story .story-icon { 
-            fill: #14b8a6;
+        .progress-bar { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            height: 3px; 
+            background: var(--success-500);
+            width: 0%; 
+            z-index: 101; 
         }
-
-        .story-label {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 2.5px;
-            font-weight: 700;
-            margin-bottom: 20px;
+        
+        h1 { 
+            font-size: 49px; 
+            font-weight: 800; 
+            line-height: 1.15; 
+            color: var(--primary-900);
         }
-
-        .old-story .story-label { color: #8b5cf6; }
-        .new-story .story-label { color: #14b8a6; }
-
-        .story-text {
-            font-size: 1.05rem;
-            line-height: 1.8;
-            color: #475569;
-            text-align: left;
+        
+        h2 { 
+            font-size: 39px; 
+            font-weight: 700; 
+            line-height: 1.2; 
+            color: var(--primary-900); 
+            margin-bottom: var(--space-4);
         }
-
-        .story-text .highlight {
+        
+        h3 { 
+            font-size: 31px; 
+            font-weight: 600; 
+            line-height: 1.3; 
+            color: var(--primary-900); 
+            margin-bottom: var(--space-3);
+        }
+        
+        @media (min-width: 768px) { h1 { font-size: clamp(40px, 5vw, 56px); } }
+        @media (max-width: 768px) { 
+            h2 { font-size: 28px; }
+            h3 { font-size: 22px; }
+        }
+        
+        .hero { 
+            background: var(--neutral-50); 
+            text-align: center; 
+            padding: var(--space-10) var(--space-3) var(--space-12);
+        }
+        
+        .pre-headline { 
+            color: var(--primary-600); 
+            font-size: 14px; 
+            font-weight: 700; 
+            margin-bottom: var(--space-4); 
+            text-transform: uppercase; 
+            letter-spacing: 1.5px;
+        }
+        
+        .hero h1 { 
+            margin-bottom: var(--space-2); 
+            max-width: 950px; 
+            margin-left: auto; 
+            margin-right: auto;
+        }
+        
+        .hero .subheadline { 
+            font-size: clamp(18px, 2.5vw, 24px); 
+            color: var(--neutral-600); 
+            margin-bottom: var(--space-8); 
+            max-width: 900px; 
+            margin-left: auto; 
+            margin-right: auto;
+        }
+        
+        .hero .subheadline-small {
+            font-size: 22px;
+            font-style: italic;
+            font-weight: 500;
+            color: var(--primary-600);
             display: block;
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-top: 16px;
-            padding-top: 16px;
-            border-top: 2px solid #e2e8f0;
+            margin-top: 8px;
+            margin-bottom: var(--space-5);
+            line-height: 1.3;
         }
-
-        .old-story .story-text .highlight {
-            color: #8b5cf6;
+        
+        .hero-bullets { 
+            max-width: 700px; 
+            margin: var(--space-6) auto; 
+            text-align: left; 
+            background: white; 
+            padding: var(--space-5); 
+            border-radius: 12px; 
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            border: 1px solid var(--neutral-200);
         }
-
-        .new-story .story-text .highlight {
-            color: #14b8a6;
-        }
-
-        .origin-story {
-            max-width: 900px;
-            margin: 0 auto 80px;
-            padding: 56px;
-            background: linear-gradient(135deg, #fff7ed 0%, #fed7aa 100%);
-            border-radius: 16px;
-            border-left: 6px solid #f97316;
-            box-shadow: 0 4px 16px rgba(249, 115, 22, 0.08);
+        
+        .hero-bullets li { 
+            padding: var(--space-2) 0 var(--space-2) 32px; 
+            font-size: 18px; 
             position: relative;
         }
-
-        .origin-story-label {
-            text-align: center;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 2.5px;
-            font-weight: 700;
-            color: #ea580c;
-            margin-bottom: 32px;
+        
+        .hero-bullets li:before { 
+            content: "✓"; 
+            position: absolute; 
+            left: 0; 
+            color: var(--success-500); 
+            font-weight: bold; 
+            font-size: 20px;
         }
-
-        .origin-story p {
-            font-size: 1.15rem;
-            line-height: 1.9;
-            color: #1e293b;
+        
+        .cta-button { 
+            display: inline-block; 
+            background: var(--accent-600);
+            color: white; 
+            padding: 20px 48px; 
+            font-size: 20px; 
+            font-weight: 600; 
+            border: 3px solid var(--primary-600);
+            border-radius: 8px; 
+            cursor: pointer; 
+            text-decoration: none; 
+            transition: all 0.25s ease; 
+            box-shadow: 0 2px 12px rgba(30, 58, 138, 0.2);
+            margin: var(--space-10) 0;
+        }
+        
+        .cta-button:hover { 
+            background: var(--accent-hover);
+            transform: translateY(-2px); 
+        }
+        
+        @media (max-width: 768px) { 
+            .cta-button { 
+                width: 100%;
+                padding: 18px var(--space-3); 
+                font-size: 18px; 
+                min-height: 56px;
+            } 
+        }
+        
+        .what-happens { 
+            margin-top: var(--space-4); 
+            font-size: 14px; 
+            color: var(--neutral-600); 
+            max-width: 550px; 
+            margin-left: auto; 
+            margin-right: auto; 
+        }
+        
+        .what-happens div { margin: 8px 0; }
+        .what-happens strong { display: block; margin-bottom: var(--space-2); }
+        
+        .trust-row { 
+            margin-top: var(--space-6); 
+            font-size: 14px; 
+            color: var(--neutral-600); 
+        }
+        
+        .stars { 
+            color: var(--warning-600); 
+            font-size: 20px; 
+            margin-bottom: var(--space-2); 
+        }
+        
+        .math-comparison { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: var(--space-6); 
+            max-width: 1050px; 
+            margin: var(--space-8) auto; 
+        }
+        
+        @media (max-width: 768px) { 
+            .math-comparison { grid-template-columns: 1fr; } 
+        }
+        
+        .comparison-box { 
+            padding: var(--space-6); 
+            border-radius: 12px; 
+            border-left: 4px solid; 
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        }
+        
+        .comparison-box.bad { 
+            background: #E5E7EB;
+            border-color: #9CA3AF;
+            opacity: 1;
+            color: #1F2937;
+        }
+        
+        .comparison-box.good { 
+            background: var(--success-50);
+            border-color: var(--success-500);
+            box-shadow: 0 4px 16px rgba(16, 185, 129, 0.15);
+            transform: scale(1.02);
+        }
+        
+        .comparison-box h3 { font-size: 24px; margin-bottom: var(--space-3); }
+        .comparison-box p { font-size: 17px; margin-bottom: var(--space-2); line-height: 1.7; }
+        
+        .comparison-caption { 
+            text-align: center; 
+            font-size: 20px; 
+            font-weight: 600; 
+            color: var(--primary-900); 
+            max-width: 750px; 
+            margin: var(--space-8) auto 0;
+            line-height: 1.5;
+        }
+        
+        .comparison-caption strong { 
+            display: block; 
+            font-size: 24px; 
+            margin-top: var(--space-2); 
+            color: var(--primary-600);
+        }
+        
+        .emotional-anchor { 
+            background: var(--warning-50);
+            border-left: 4px solid var(--warning-600); 
+            padding: var(--space-6); 
+            border-radius: 12px; 
+            max-width: 850px; 
+            margin: var(--space-10) auto; 
+            font-size: 19px;
+            line-height: 1.8;
+        }
+        
+        .emotional-anchor strong { 
+            color: var(--primary-900); 
+            font-size: 22px; 
+            display: block; 
+            margin-bottom: var(--space-3); 
+        }
+        
+        .emotional-anchor p { margin: var(--space-2) 0; }
+        
+        .text-center { text-align: center; }
+        .mb-48 { margin-bottom: var(--space-6); }
+        
+        .value-grid { 
+            display: grid; 
+            grid-template-columns: 1fr;
+            gap: var(--space-4); 
+            margin: var(--space-8) 0;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        @media (min-width: 768px) {
+            .value-grid {
+                grid-template-columns: repeat(2, 1fr);
+                max-width: 1100px;
+            }
+        }
+        
+        .bonus-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 32px;
+            max-width: 900px;
+            margin: 0 auto 48px;
+        }
+        
+        @media (min-width: 768px) {
+            .bonus-grid {
+                grid-template-columns: repeat(2, 1fr);
+                max-width: 1100px;
+            }
+        }
+        
+        .value-card { 
+            background: white; 
+            padding: var(--space-5); 
+            border-radius: 12px; 
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06); 
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .value-card:hover { 
+            border-color: var(--primary-600);
+            box-shadow: 0 4px 16px rgba(30, 58, 138, 0.12); 
+        }
+        
+        .value-card .icon { font-size: 48px; margin-bottom: var(--space-3); }
+        .value-card h3 { font-size: 24px; color: var(--primary-900); margin-bottom: var(--space-2); font-weight: 700; }
+        .value-card .duration { color: var(--neutral-600); font-size: 14px; margin-bottom: var(--space-3); font-weight: 500; }
+        .value-card ul { list-style: none; margin: var(--space-3) 0; }
+        .value-card li { padding: 8px 0 8px 28px; position: relative; font-size: 16px; line-height: 1.6; }
+        .value-card li:before { 
+            content: "✓"; 
+            position: absolute; 
+            left: 0; 
+            color: var(--success-500); 
+            font-weight: bold; 
+            font-size: 18px;
+        }
+        
+        .testimonial-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+            gap: var(--space-5); 
+            margin: var(--space-8) 0; 
+        }
+        
+        .testimonial-card { 
+            background: white;
+            padding: var(--space-5); 
+            border-radius: 12px; 
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .testimonial-card:hover {
+            border-color: var(--primary-600);
+            box-shadow: 0 4px 16px rgba(30, 58, 138, 0.12);
+        }
+        
+        .testimonial-card .photo { 
+            width: 80px; 
+            height: 80px; 
+            border-radius: 50%; 
+            margin: 0 auto var(--space-3); 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 24px; 
+            font-weight: 700;
+            color: white;
+            border: 3px solid rgba(255,255,255,0.3);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .testimonial-card .stars { text-align: center; margin-bottom: var(--space-2); color: var(--warning-600); }
+        .testimonial-card .quote { font-style: italic; font-size: 16px; margin: var(--space-3) 0; line-height: 1.7; color: var(--neutral-700); }
+        .testimonial-card .name { font-weight: 700; color: var(--primary-900); margin-top: var(--space-3); font-size: 17px; }
+        .testimonial-card .title { font-size: 14px; color: var(--neutral-600); margin-top: 4px; }
+        
+        .faq-section { max-width: 950px; margin: 0 auto; }
+        .faq-item { 
+            background: white; 
+            margin-bottom: var(--space-3); 
+            border-radius: 10px; 
+            overflow: hidden; 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05); 
+            transition: box-shadow 0.3s ease;
+            border: 1px solid var(--neutral-200);
+        }
+        
+        .faq-item:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+        
+        .faq-question { 
+            padding: var(--space-4); 
+            cursor: pointer; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            font-size: 19px; 
+            font-weight: 700; 
+            color: var(--primary-900); 
+            transition: background 0.2s; 
+        }
+        
+        @media (max-width: 768px) { .faq-question { font-size: 17px; padding: var(--space-3); } }
+        
+        .faq-question:hover { background: var(--neutral-50); }
+        
+        .faq-icon { 
+            font-size: 28px; 
+            color: var(--primary-600); 
+            font-weight: bold; 
+            min-width: 28px; 
+            text-align: center; 
+        }
+        
+        .faq-answer { 
+            max-height: 0; 
+            overflow: hidden; 
+            transition: max-height 0.4s ease; 
+            padding: 0 var(--space-4); 
+        }
+        
+        .faq-answer.active { 
+            max-height: 1500px; 
+            padding: 0 var(--space-4) var(--space-4); 
+        }
+        
+        .faq-answer p { 
+            font-size: 17px; 
+            line-height: 1.8; 
+            color: var(--neutral-700); 
+            margin-bottom: var(--space-2); 
+        }
+        
+        .guarantee { 
+            background: var(--success-50);
+            border: 3px solid var(--success-500); 
+            border-radius: 16px; 
+            padding: var(--space-8); 
+            text-align: center; 
+            max-width: 900px; 
+            margin: 0 auto; 
+            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.15);
+        }
+        
+        @media (max-width: 768px) { .guarantee { padding: var(--space-6); } }
+        
+        .guarantee .shield { font-size: 80px; margin-bottom: var(--space-4); }
+        .guarantee h2 { font-size: 34px; color: var(--primary-900); margin-bottom: var(--space-4); }
+        .guarantee p { font-size: 18px; margin-bottom: var(--space-3); line-height: 1.8; color: var(--neutral-700); }
+        .guarantee .highlight { color: var(--primary-600); font-weight: 700; }
+        
+        footer { 
+            background: var(--neutral-900); 
+            color: white; 
+            padding: var(--space-8) var(--space-3); 
+            text-align: center; 
+        }
+        
+        footer a { color: var(--primary-600); text-decoration: none; }
+        .footer-links { margin: var(--space-4) 0; }
+        .footer-links a { margin: 0 var(--space-3); }
+        
+        /* FOMO Notification Styles */
+        .fomo-popup {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: white;
+            padding: 16px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            border-left: 4px solid #10B981;
+            max-width: 320px;
+            z-index: 1000;
+            animation: slideInLeft 0.5s ease-out;
+            display: none;
+        }
+        
+        @keyframes slideInLeft {
+            from {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes slideOutLeft {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+        }
+        
+        .fomo-content {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .fomo-icon {
+            font-size: 32px;
+            flex-shrink: 0;
+        }
+        
+        .fomo-text {
+            flex: 1;
+        }
+        
+        .fomo-name {
+            font-weight: 600;
+            color: #1E3A8A;
+            font-size: 14px;
+            margin-bottom: 2px;
+        }
+        
+        .fomo-action {
+            font-size: 13px;
+            color: #6B7280;
+        }
+        
+        .fomo-close {
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: #9CA3AF;
+            cursor: pointer;
+            padding: 0;
+            margin-left: 8px;
+            line-height: 1;
+            flex-shrink: 0;
+        }
+        
+        .fomo-close:hover {
+            color: #4B5563;
+        }
+        
+        @media (max-width: 768px) {
+            .fomo-popup {
+                left: 50%;
+                transform: translateX(-50%);
+                bottom: 80px;
+                max-width: calc(100% - 40px);
+            }
+            
+            @keyframes slideInLeft {
+                from {
+                    transform: translateX(-50%) translateY(20px);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(-50%) translateY(0);
+                    opacity: 1;
+                }
+            }
+        }
+        
+        /* Exit Intent Popup Styles */
+        .exit-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(4px);
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .exit-popup {
+            background: #FFF9E6;
+            padding: 40px;
+            border-radius: 12px;
+            border-left: 4px solid #F59E0B;
+            max-width: 520px;
+            width: 90%;
+            position: relative;
+            animation: slideUp 0.4s ease-out;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .exit-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: none;
+            border: none;
+            font-size: 32px;
+            color: #9CA3AF;
+            cursor: pointer;
+            line-height: 1;
+            padding: 0;
+            width: 32px;
+            height: 32px;
+        }
+        
+        .exit-close:hover {
+            color: #4B5563;
+        }
+        
+        .exit-popup h2 {
+            font-size: 28px;
+            color: #1E3A8A;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            font-weight: 700;
+        }
+        
+        .exit-popup p {
+            font-size: 17px;
+            line-height: 1.6;
+            color: #374151;
+            margin-bottom: 16px;
+        }
+        
+        .exit-popup p.exit-intro {
+            font-size: 18px;
+            font-weight: 500;
+            color: #1E3A8A;
             margin-bottom: 24px;
         }
-
-        .origin-story p:last-child {
-            margin-bottom: 0;
+        
+        .exit-guarantees {
+            background: #FFFFFF;
+            padding: 24px;
+            border-radius: 8px;
+            margin: 24px 0;
+            border: 1px solid #FDE68A;
         }
-
-        .origin-story strong {
-            color: #0f172a;
-            font-weight: 700;
-        }
-
-        .origin-story em {
-            font-style: italic;
-            color: #ea580c;
-            font-weight: 600;
-        }
-
-        .benefits-simple {
-            max-width: 900px;
-            margin: 80px auto;
-            padding: 56px;
-            background: white;
-            border-radius: 16px;
-            border: 2px solid #e2e8f0;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
-        }
-
-        .benefits-simple h3 {
-            font-size: 2rem;
-            font-weight: 800;
-            color: #0f172a;
-            margin-bottom: 40px;
-            text-align: center;
-            line-height: 1.2;
-        }
-
-        .benefit-item {
-            padding: 32px 0;
-            border-bottom: 2px solid #f1f5f9;
-        }
-
-        .benefit-item:last-child {
-            border-bottom: none;
-            padding-bottom: 0;
-        }
-
-        .benefit-item:first-child {
-            padding-top: 0;
-        }
-
-        .benefit-header {
+        
+        .exit-guarantees div {
+            padding: 12px 0;
+            font-size: 16px;
+            color: #1E3A8A;
+            line-height: 1.6;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             gap: 12px;
-            margin-bottom: 12px;
         }
-
-        .benefit-check {
-            width: 24px;
-            height: 24px;
-            stroke: #14b8a6;
-            stroke-width: 3;
+        
+        .exit-guarantees div:not(:last-child) {
+            border-bottom: 1px solid #FEF3C7;
+        }
+        
+        .exit-guarantees .check {
+            color: #10B981;
+            font-size: 20px;
             flex-shrink: 0;
+            line-height: 1;
+            margin-top: 2px;
         }
-
-        .benefit-title {
-            font-size: 1.3rem;
+        
+        .exit-guarantees .guarantee-text {
+            flex: 1;
+        }
+        
+        .exit-guarantees .guarantee-title {
             font-weight: 700;
-            color: #0f172a;
+            color: #1E3A8A;
+            margin-bottom: 4px;
         }
-
-        .benefit-description {
-            font-size: 1.05rem;
-            color: #475569;
-            line-height: 1.7;
-            padding-left: 36px;
+        
+        .exit-guarantees .guarantee-detail {
+            font-size: 15px;
+            color: #6B7280;
         }
-
-        .faq-section {
-            max-width: 900px;
-            margin: 80px auto;
-            padding: 56px;
-            background: white;
-            border-radius: 16px;
-            border: 2px solid #e2e8f0;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
-        }
-
-        .faq-section h4 {
-            font-size: 1.75rem;
-            font-weight: 700;
-            color: #0f172a;
-            margin-bottom: 32px;
+        
+        .exit-highlight {
             text-align: center;
-        }
-
-        .faq-item {
-            margin-bottom: 32px;
-            position: relative;
-            padding-left: 40px;
-        }
-
-        .faq-item:last-child {
-            margin-bottom: 0;
-        }
-
-        .faq-icon {
-            position: absolute;
-            left: 0;
-            top: 0;
-            font-size: 1.5rem;
-        }
-
-        .faq-question {
+            font-size: 20px;
             font-weight: 700;
-            color: #0f172a;
-            margin-bottom: 8px;
-            font-size: 1.1rem;
+            color: #1E3A8A;
+            margin: 24px 0;
         }
-
-        .faq-answer {
-            color: #475569;
-            font-size: 1rem;
-            line-height: 1.7;
-        }
-
-        .final-cta-section {
-            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
-            padding: 80px 56px;
-            border-radius: 16px;
+        
+        .exit-final {
             text-align: center;
-            border: 2px solid #bfdbfe;
-            margin-bottom: 80px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            font-size: 16px;
+            color: #6B7280;
+            margin-bottom: 24px;
+            font-style: italic;
         }
-
-        .final-cta-section h2 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: #0f172a;
-            margin-bottom: 20px;
-            line-height: 1.15;
-            letter-spacing: -0.02em;
-        }
-
-        .final-cta-section p {
-            font-size: 1.15rem;
-            color: #475569;
-            margin-bottom: 32px;
-        }
-
-        .final-cta-benefits {
-            display: flex;
-            justify-content: center;
-            gap: 32px;
-            margin-bottom: 32px;
-            flex-wrap: wrap;
-        }
-
-        .final-cta-benefit {
+        
+        .exit-cta {
+            width: 100%;
+            padding: 20px 32px;
+            background: #10B981;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 18px;
+            transition: all 0.2s ease;
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 8px;
-            font-size: 1rem;
-            font-weight: 600;
-            color: #059669;
         }
-
-        .final-cta-benefit svg {
-            width: 20px;
-            height: 20px;
-            stroke: #059669;
-            stroke-width: 3;
+        
+        .exit-cta:hover {
+            background: #059669;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
         }
-
-        .ps-note {
-            margin-top: 24px;
-            font-size: 0.95rem;
-            color: #0f172a;
-            font-style: normal;
-            font-weight: 600;
-        }
-
-        .ps-note strong {
-            color: #ea580c;
-            font-weight: 700;
-            font-size: 1.05rem;
-        }
-
-        .footer {
+        
+        .exit-secure {
             text-align: center;
-            padding: 40px 20px;
-            border-top: 2px solid #e2e8f0;
-            margin-top: 40px;
-            font-size: 0.95rem;
-            color: #64748b;
+            margin-top: 16px;
+            color: #6B7280;
+            font-size: 14px;
         }
-
-        .footer-links {
-            margin-top: 20px;
+        
+        /* CTA Pulse Animation */
+        @keyframes ctaPulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 10px rgba(16, 185, 129, 0);
+            }
         }
-
-        .footer-links a {
-            color: #14b8a6;
-            text-decoration: none;
-            margin: 0 24px;
-            font-weight: 500;
-            transition: color 0.2s ease;
+        
+        .pulse-attention {
+            animation: ctaPulse 0.6s ease-out 3;
         }
-
-        .footer-links a:hover {
-            color: #059669;
-            text-decoration: underline;
-        }
-
+        
         @media (max-width: 768px) {
-            .container {
-                padding: 40px 20px;
+            .exit-popup {
+                padding: 28px 24px;
+                width: 95%;
             }
-            .hero-section {
-                padding: 40px 20px 60px;
-                margin: -40px -20px 0;
+            
+            .exit-popup h2 {
+                font-size: 24px;
             }
-            .headline {
-                font-size: 2.5rem;
+            
+            .exit-popup p {
+                font-size: 16px;
             }
-            .story-grid {
-                grid-template-columns: 1fr;
+            
+            .exit-guarantees div {
+                font-size: 15px;
             }
-            .market-content, .origin-story, .benefits-simple, .faq-section {
-                padding: 32px 24px;
+            
+            /* Mobile timeline responsiveness */
+            .timeline-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 16px !important;
             }
-            .final-cta-section {
-                padding: 48px 24px;
+            
+            .timeline-grid > div:last-child {
+                grid-column: 1 / -1;
             }
-            .cta-button {
-                padding: 18px 36px;
-                font-size: 1rem;
+            
+            .exit-cta {
+                font-size: 16px;
+                padding: 18px 24px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="hero-section">
-            <div class="pre-header">Replace Your Salary Without Creating a Single Product</div>
+    <div class="progress-bar" id="progressBar"></div>
+    
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">💰</div>
+                <div class="enrollment-counter">
+                    <div class="enrollment-counter-label">ALMOST SOLD OUT</div>
+                    <div class="enrollment-counter-text">
+                        <span style="font-size: 15px; font-weight: 400;">Only</span>
+                        <span style="font-size: 26px; font-weight: 900; letter-spacing: -0.5px;">47</span>
+                        <span style="font-size: 15px; font-weight: 400;">Spots at</span>
+                        <span style="font-size: 20px; font-weight: 700; color: #10B981;">$17</span>
+                        <span style="font-size: 13px; font-weight: 400; opacity: 0.8;">(Then $397)</span>
+                    </div>
+                    <div class="enrollment-progress">
+                        <div class="enrollment-progress-bar"></div>
+                    </div>
+                    <div class="enrollment-activity" style="font-size: 11px; color: rgba(255,255,255,0.7); margin-top: 8px; text-align: center;">
+                        🔴 Last enrollment: 8 minutes ago
+                    </div>
+                </div>
+                <a href="#order" class="header-cta">Claim Your Spot</a>
+            </div>
+        </div>
+    </header>
+    
+    <!-- HERO (AI MENTION #1: In headline) -->
+    <section class="hero">
+        <div class="container">
+            <p class="pre-headline">For Anyone Who's Bought a "Make Money Online" Course... And STILL Has <strong style="color: #DC2626; font-weight: 700;">$0.00</strong> to Show For It</p>
             
-            <h1 class="headline">
-                How a Burnt-Out Nurse Replaced a <span class="headline-accent">$92K Salary</span> in 8 Months
+            <h1 style="margin-bottom: 16px;">
+                How a Burnt-Out Nurse Made <span style="color: #10B981; font-weight: 900;">$18,842.29</span> in 90 Days
             </h1>
             
-            <h2 class="sub-headline">
-                (Working Just 2 Hours a Week)
-            </h2>
-
-            <a href="#" class="cta-button">
-                Join the Priority List (Get the Formula Free) →
-            </a>
-
-            <div class="trust-line">Free to join • Instant access to the Formula • 70% discount locked in for founding members</div>
-
-            <div class="trust-badges">
-                <div class="trust-badge">
-                    <svg class="trust-badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <circle cx="12" cy="12" r="10"/><path d="M8 12h8"/>
-                    </svg>
-                    <span>No Product Creation</span>
-                </div>
-                <div class="trust-badge">
-                    <svg class="trust-badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
-                    </svg>
-                    <span>Recurring Commissions</span>
-                </div>
-                <div class="trust-badge">
-                    <svg class="trust-badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
-                    </svg>
-                    <span>2 Hours/Week</span>
-                </div>
+            <p style="font-size: 30px; color: #2563EB; font-weight: 700; font-style: italic; margin-bottom: 20px; line-height: 1.3;">
+                Using AI to Find $500 Commission Offers
+            </p>
+            
+            <p class="subheadline-small">(Working Just 2 Hours a Week)</p>
+            
+            <!-- AI MENTION #2: In ONE bullet -->
+            <div class="hero-bullets">
+                <ul style="list-style: none;">
+                    <li>Use AI to find $500+ commission offers in any niche (in 10 minutes, not 10 hours)</li>
+                    <li>Set up a simple system that runs 24/7 (even while you sleep)</li>
+                    <li>No paid ads. No email list. No tech skills required.</li>
+                    <li>No showing your face or "building your brand" for months with zero income</li>
+                    <li><strong>The same system 2,847 students used to escape the $0.00 dashboard</strong></li>
+                </ul>
+            </div>
+            
+            <div class="what-happens">
+                <strong>What happens when you click below:</strong>
+                <div>✓ Secure checkout (30 seconds)</div>
+                <div>✓ Instant access to training portal</div>
+                <div>✓ Start Module 1 in 5 minutes</div>
+                <div><strong>✓ Make your first commission in 14 days</strong></div>
+            </div>
+            
+            <a href="#order" class="cta-button" style="background: #10B981; border-color: #059669;">Yes! Claim My Spot for $17 →</a>
+            
+            <div class="trust-row">
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <div><strong>Rated 4.9/5 by 2,847 students</strong></div>
+                <div style="margin-top: 8px;">🔒 Secure Checkout | 💳 All Cards Accepted | ⚡ Instant Access</div>
             </div>
         </div>
-
-        <div class="market-opportunity-section">
-            <div class="market-badge">Why Recurring Commissions Change Everything</div>
-            <div class="market-content">
-                <p>Most affiliates earn once and start over. Here's what changes with recurring commissions: One customer subscribing to a $47/month product pays you $564/year. Ten customers = $5,640/year while you sleep.</p>
+    </section>
+    
+    <!-- SHAME ADDRESSING SECTION -->
+    <section class="section-medium" style="background: white;">
+        <div class="container narrow">
+            <h2 class="text-center" style="font-size: 36px;">Before We Go Further, Let's Address The Elephant in the Room</h2>
+            
+            <p style="font-size: 20px; margin-bottom: 24px; line-height: 1.9; text-align: center; font-style: italic; color: var(--primary-600);">
+                You're probably thinking: "What if I'm the problem? What if I'm just not cut out for this?"
+            </p>
+            
+            <p style="font-size: 19px; margin-bottom: 24px; line-height: 1.9;">
+                I thought that too.
+            </p>
+            
+            <p style="font-size: 19px; margin-bottom: 24px; line-height: 1.9;">
+                After spending $3,000+ on courses that didn't work, I started wondering if maybe I was just... too dumb. Too slow. Too "not entrepreneurial."
+            </p>
+            
+            <p style="font-size: 19px; margin-bottom: 24px; line-height: 1.9;">
+                <strong>Turns out? I wasn't the problem.</strong>
+            </p>
+            
+            <p style="font-size: 19px; margin-bottom: 24px; line-height: 1.9;">
+                The SYSTEM was the problem.
+            </p>
+            
+            <p style="font-size: 19px; margin-bottom: 24px; line-height: 1.9;">
+                And once I found the RIGHT system—the one I'm about to show you—everything clicked.
+            </p>
+            
+            <p style="font-size: 22px; margin-bottom: 40px; line-height: 1.7; font-weight: 600; color: var(--primary-900); text-align: center;">
+                If you can follow simple instructions and show up 2 hours per week?<br>
+                You're not the problem either.
+            </p>
+            
+            <p style="font-size: 20px; line-height: 1.7; text-align: center; color: var(--primary-600);">
+                Let me prove it to you.
+            </p>
+        </div>
+    </section>
+    
+    <!-- THE MATH SECTION -->
+    <section class="section-medium" style="background: var(--neutral-50);">
+        <div class="container">
+            <h2 class="text-center mb-48">Let Me Show You The Math That Every "Guru" Hides From You</h2>
+            
+            <div class="math-comparison">
+                <div class="comparison-box bad">
+                    <h3>❌ The Old Way: Small Commissions</h3>
+                    <p><strong>To make $5,000 with those $27 products they push?</strong></p>
+                    <p>You need <strong>185 SALES.</strong></p>
+                    <p>That's 6+ sales. Every. Single. Day. For an entire month.</p>
+                    <p>Miss two days? You're broke again.</p>
+                    <p>Get sick? You're done.</p>
+                    <p>Take a vacation? Haha, good luck.</p>
+                </div>
                 
-                <p>You're not creating products. You're not handling support. You're connecting people to solutions that already work—and collecting monthly payments that compound.</p>
+                <div class="comparison-box good">
+                    <h3>✅ The New Way: $500 Commissions</h3>
+                    <p><strong>To make $5,000 with $500 commissions?</strong></p>
+                    <p>You need <strong>10 SALES.</strong></p>
+                    <p>That's 2-3 sales per MONTH.</p>
+                    <p>Same money. 18x less grinding.</p>
+                    <p>Time to breathe. Time to scale. Time to actually LIVE.</p>
+                </div>
+            </div>
+            
+            <p class="comparison-caption">
+                This isn't "harder." This is SMARTER.
+                <strong>Remember that math. Because everything I'm about to show you is built on it.</strong>
+            </p>
+            
+            <div style="background: linear-gradient(135deg, #DBEAFE 0%, #EFF6FF 100%); padding: 48px; border-radius: 16px; margin-top: 48px; border-left: 4px solid var(--primary-600); box-shadow: 0 4px 16px rgba(30, 58, 138, 0.1);">
+                <h3 style="font-size: 28px; color: var(--primary-900); margin-bottom: 24px; text-align: center;">🔄 And Here's What Makes It Even Better...</h3>
+                
+                <p style="font-size: 20px; line-height: 1.8; margin-bottom: 24px; text-align: center; font-weight: 600; color: var(--primary-900);">
+                    Many of these $500+ offers include <strong style="color: var(--primary-600);">RECURRING commissions.</strong>
+                </p>
+                
+                <p style="font-size: 19px; line-height: 1.9; margin-bottom: 24px;">
+                    That means one connection can pay you $50, $100, even $200+ per month—for as long as they stay subscribed.
+                </p>
+                
+                <p style="font-size: 22px; line-height: 1.8; font-weight: 600; color: var(--primary-900); text-align: center; margin-bottom: 16px;">
+                    Ten customers = $2,000/month in recurring income.<br>
+                    That's $24,000/year from TEN people.<br>
+                    <span style="color: var(--primary-600);">While you sleep.</span>
+                </p>
+                
+                <div style="background: white; padding: 32px; border-radius: 12px; margin-top: 32px;">
+                    <p style="font-size: 19px; line-height: 1.9; margin-bottom: 16px;">
+                        <strong>Most affiliates earn once and start over.</strong> Every. Single. Month.
+                    </p>
+                    <p style="font-size: 19px; line-height: 1.9; margin-bottom: 16px;">
+                        With recurring commissions:
+                    </p>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li style="padding: 10px 0 10px 32px; position: relative; font-size: 18px;">
+                            <span style="position: absolute; left: 0; color: var(--success-500); font-weight: bold; font-size: 20px;">✓</span>
+                            One customer = months (or years) of payments
+                        </li>
+                        <li style="padding: 10px 0 10px 32px; position: relative; font-size: 18px;">
+                            <span style="position: absolute; left: 0; color: var(--success-500); font-weight: bold; font-size: 20px;">✓</span>
+                            Income compounds while you focus on new connections
+                        </li>
+                        <li style="padding: 10px 0 10px 32px; position: relative; font-size: 18px;">
+                            <span style="position: absolute; left: 0; color: var(--success-500); font-weight: bold; font-size: 20px;">✓</span>
+                            Bad month? Your recurring base catches you
+                        </li>
+                        <li style="padding: 10px 0 10px 32px; position: relative; font-size: 18px;">
+                            <span style="position: absolute; left: 0; color: var(--success-500); font-weight: bold; font-size: 20px;">✓</span>
+                            Build once. Get paid monthly.
+                        </li>
+                    </ul>
+                    <p style="font-size: 20px; font-weight: 700; color: var(--primary-900); margin-top: 24px; text-align: center;">
+                        This is how you escape the hamster wheel.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- AI MENTION #3: Showing how AI makes it EASIER -->
+            <div style="background: var(--primary-50); padding: 48px; border-radius: 12px; margin: 48px auto; max-width: 800px; border: 3px solid var(--primary-600);">
+                <h3 style="text-align: center; font-size: 28px; color: var(--primary-900); margin-bottom: 24px;">
+                    But Here's Where It Gets Even Better:
+                </h3>
+                <p style="font-size: 19px; line-height: 1.8; margin-bottom: 20px;">
+                    Before AI, finding those 10 high-commission offers took HOURS of manual research.
+                </p>
+                <p style="font-size: 19px; line-height: 1.8; margin-bottom: 20px;">
+                    You had to dig through affiliate networks. Read through program descriptions. Calculate commissions. Research the companies. Check if they were legit.
+                </p>
+                <p style="font-size: 22px; font-weight: 600; color: var(--primary-600); text-align: center; margin: 32px 0;">
+                    Now? AI does it in 10 minutes.
+                </p>
+                <p style="font-size: 19px; line-height: 1.8;">
+                    I'll show you exactly which AI tools to use, exactly what to ask them, and exactly how to filter the results. You get a list of vetted, high-commission offers handed to you on a silver platter.
+                </p>
+            </div>
+            
+            <div class="emotional-anchor">
+                <strong>If you've ever felt like you're working twice as hard for half the results...</strong>
+                <p>You're not broken. You're not lazy. You're not "bad at this."</p>
+                <p><strong>You're just using the WRONG system.</strong></p>
+                <p>Here's how I discovered the right one—and how you can use it starting today.</p>
             </div>
         </div>
+    </section>
+    
+    <!-- EMPATHY & VILLAIN SECTION -->
+    <section class="section-medium" style="background: white;">
+        <div class="container narrow">
+            <h2 class="text-center">Look, I Get It...</h2>
+            
+            <p style="font-size: 19px; margin-bottom: 24px; line-height: 1.9;">
+                <strong>Building an online business is TOUGH.</strong> And today, with all the social media platforms you need to be on, all the tools you need to learn, and all the content you need to create... it's hard to keep up, let alone actually make money.
+            </p>
+            
+            <p style="font-size: 19px; margin-bottom: 24px; line-height: 1.9;">
+                And if you're like most people who reach out to me, you probably feel <strong>frustrated, deflated, exhausted</strong>... already wondering how long you can keep this up before you have to pack it in.
+            </p>
+            
+            <p style="font-size: 19px; margin-bottom: 24px; line-height: 1.9;">
+                Maybe you're <strong>opening your dashboard for the 12th time today</strong>, heart sinking as you see $0.00 earned. Or you finally got your first sale... then realized you'd need <strong>185 more sales just like that one</strong> to quit your job.
+            </p>
+            
+            <p style="font-size: 19px; margin-bottom: 24px; line-height: 1.9;">
+                Maybe you're staring at your credit card statement showing monthly payments for tools you barely understand—while your earnings sit at zero.
+            </p>
+            
+            <p style="font-size: 20px; font-weight: 600; color: var(--primary-900); margin-bottom: 32px; margin-top: 40px;">
+                So let me ask you something:
+            </p>
+            
+            <h3 style="font-size: 32px; color: var(--warning-600); text-align: center; margin-bottom: 32px;">Who's REALLY To Blame For Your $0.00 Dashboard?</h3>
+            
+            <p style="font-size: 19px; margin-bottom: 24px; line-height: 1.9;">
+                Here's the uncomfortable truth:
+            </p>
+            
+            <p style="font-size: 19px; margin-bottom: 24px; line-height: 1.9;">
+                Those "gurus" selling you $27 courses on how to "crush it online"?
+            </p>
+            
+            <p style="font-size: 22px; margin-bottom: 24px; line-height: 1.8; font-weight: 600; color: var(--primary-900);">
+                THEY'RE the ones making $10K months.
+            </p>
+            
+            <p style="font-size: 19px; margin-bottom: 24px; line-height: 1.9;">
+                Not from the system they teach.
+            </p>
+            
+            <p style="font-size: 19px; margin-bottom: 24px; line-height: 1.9;">
+                <strong>From selling YOU the course.</strong>
+            </p>
+            
+            <p style="font-size: 19px; margin-bottom: 24px; line-height: 1.9;">
+                They make money TEACHING how to make money online. Not DOING it.
+            </p>
+            
+            <p style="font-size: 19px; margin-bottom: 24px; line-height: 1.9;">
+                That's why their systems don't work for you. Because they were never designed to. They were designed to make THEM money by selling courses to people like you.
+            </p>
+            
+            <p style="font-size: 19px; margin-bottom: 32px; line-height: 1.9;">
+                <strong>And the worst part? They KNOW their system doesn't work.</strong> They just don't care. Because they're not making money FROM the system. They're making money FROM YOU.
+            </p>
+            
+            <p style="font-size: 19px; margin-bottom: 32px; line-height: 1.9; background: var(--warning-50); padding: 24px; border-radius: 8px; border-left: 4px solid var(--warning-600);">
+                <strong>I know because I bought those courses too. $3,000+ worth.</strong><br><br>
+                And I got the same results you did: $0.00.<br><br>
+                Until I stopped listening to the course sellers... and started copying what the ACTUAL money-makers were doing.
+            </p>
+            
+            <p style="font-size: 20px; margin-bottom: 24px; line-height: 1.9; font-weight: 600; text-align: center; color: var(--primary-600);">
+                That's this system. And I'm going to show you exactly how it works.
+            </p>
+        </div>
+    </section>
+    
+    <!-- WHY THIS IS DIFFERENT - TRUST SECTION -->
+    <section class="section-medium" style="background: #FFF9E6; border-top: 4px solid #F59E0B; border-bottom: 4px solid #F59E0B;">
+        <div class="container narrow">
+            <h2 class="text-center" style="color: var(--primary-900); margin-bottom: 32px;">"Okay... But I've Been Burned Before. Why Should I Trust THIS?"</h2>
+            
+            <p style="font-size: 20px; margin-bottom: 32px; line-height: 1.8; font-weight: 600; text-align: center; font-style: italic; color: #92400E;">
+                I hear you. And honestly? That's the smartest question you could ask.
+            </p>
+            
+            <div style="background: white; padding: 40px; border-radius: 12px; margin-bottom: 32px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
+                <p style="font-size: 19px; line-height: 1.9; margin-bottom: 24px;">
+                    <strong>Let me guess what happened before:</strong>
+                </p>
+                
+                <ul style="list-style: none; padding-left: 0; margin-bottom: 24px;">
+                    <li style="padding: 14px 0 14px 36px; position: relative; font-size: 18px; line-height: 1.7; border-bottom: 1px solid var(--neutral-200);">
+                        <span style="position: absolute; left: 0; color: #DC2626; font-weight: bold; font-size: 22px;">✗</span>
+                        You bought a $997 course that assumed you already knew everything
+                    </li>
+                    <li style="padding: 14px 0 14px 36px; position: relative; font-size: 18px; line-height: 1.7; border-bottom: 1px solid var(--neutral-200);">
+                        <span style="position: absolute; left: 0; color: #DC2626; font-weight: bold; font-size: 22px;">✗</span>
+                        Then they upsold you another $2,000 in "essential" tools and training
+                    </li>
+                    <li style="padding: 14px 0 14px 36px; position: relative; font-size: 18px; line-height: 1.7; border-bottom: 1px solid var(--neutral-200);">
+                        <span style="position: absolute; left: 0; color: #DC2626; font-weight: bold; font-size: 22px;">✗</span>
+                        You spent money on Facebook ads that got you zero results
+                    </li>
+                    <li style="padding: 14px 0 14px 36px; position: relative; font-size: 18px; line-height: 1.7; border-bottom: 1px solid var(--neutral-200);">
+                        <span style="position: absolute; left: 0; color: #DC2626; font-weight: bold; font-size: 22px;">✗</span>
+                        Information overload left you paralyzed, not knowing what to do next
+                    </li>
+                    <li style="padding: 14px 0 14px 36px; position: relative; font-size: 18px; line-height: 1.7;">
+                        <span style="position: absolute; left: 0; color: #DC2626; font-weight: bold; font-size: 22px;">✗</span>
+                        You felt like everyone was trying to sell you something before offering any real value
+                    </li>
+                </ul>
+                
+                <p style="font-size: 20px; line-height: 1.8; font-weight: 600; color: var(--primary-900); text-align: center; margin-top: 32px; padding-top: 24px; border-top: 2px solid var(--neutral-200);">
+                    One member said it perfectly: <span style="color: #DC2626;">"This industry is filled with scammers."</span>
+                </p>
+            </div>
+            
+            <h3 style="font-size: 28px; color: var(--primary-900); margin-bottom: 24px; text-align: center;">Here's What Makes This Different:</h3>
+            
+            <div style="display: grid; gap: 24px; margin-top: 32px;">
+                <div style="background: white; padding: 32px; border-radius: 12px; border-left: 4px solid var(--success-500); box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
+                    <h4 style="font-size: 20px; font-weight: 700; color: var(--primary-900); margin-bottom: 12px;">💰 Price That Proves The Point</h4>
+                    <p style="font-size: 17px; line-height: 1.7; color: var(--neutral-700);">
+                        It's $17. Not $997. If I was trying to get rich selling courses, I'd price it like everyone else. <strong>I'm making my money FROM the system</strong> (recurring commissions, remember?), not from selling you overpriced courses.
+                    </p>
+                </div>
+                
+                <div style="background: white; padding: 32px; border-radius: 12px; border-left: 4px solid var(--success-500); box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
+                    <h4 style="font-size: 20px; font-weight: 700; color: var(--primary-900); margin-bottom: 12px;">🎯 No Upsells Required</h4>
+                    <p style="font-size: 17px; line-height: 1.7; color: var(--neutral-700);">
+                        Everything you need is included. No "oh, by the way, you also need this $2,000 tool to actually make it work." The AI tools I show you? <strong>Most are free.</strong> The traffic methods? Free. You can do this with $17.
+                    </p>
+                </div>
+                
+                <div style="background: white; padding: 32px; border-radius: 12px; border-left: 4px solid var(--success-500); box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
+                    <h4 style="font-size: 20px; font-weight: 700; color: var(--primary-900); margin-bottom: 12px;">✅ Built For Actual Beginners</h4>
+                    <p style="font-size: 17px; line-height: 1.7; color: var(--neutral-700);">
+                        I don't assume you know anything. <strong>I explain every step</strong> like I'm talking to my grandmother. Tech-phobic? Perfect. That's who this is FOR. No jargon. No skipped steps. No "you should already know this."
+                    </p>
+                </div>
+                
+                <div style="background: white; padding: 32px; border-radius: 12px; border-left: 4px solid var(--success-500); box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
+                    <h4 style="font-size: 20px; font-weight: 700; color: var(--primary-900); margin-bottom: 12px;">🛡️ 60-Day Guarantee</h4>
+                    <p style="font-size: 17px; line-height: 1.7; color: var(--neutral-700);">
+                        Try it. Follow the system. If you don't see results or think "this isn't worth 10x what I paid," just email me. <strong>I'll refund every penny.</strong> No questions, no hassle, no hard feelings.
+                    </p>
+                </div>
+                
+                <div style="background: white; padding: 32px; border-radius: 12px; border-left: 4px solid var(--success-500); box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
+                    <h4 style="font-size: 20px; font-weight: 700; color: var(--primary-900); margin-bottom: 12px;">👥 Real People, Real Results</h4>
+                    <p style="font-size: 17px; line-height: 1.7; color: var(--neutral-700);">
+                        2,847 students aren't fake. They're people like John (46, railway technician): <em>"Time is running out for me... I cannot rely on my job."</em> Or Sarah (59, special-ed teacher): <em>"I have no idea how to get started."</em> They figured it out. So can you.
+                    </p>
+                </div>
+            </div>
+            
+            <p style="font-size: 20px; line-height: 1.8; font-weight: 600; text-align: center; margin-top: 48px; color: var(--primary-900);">
+                Look, you've been burned. I get it. I was too.<br>
+                <span style="color: var(--primary-600);">But $17 is less than two coffees at Starbucks.</span><br>
+                And this actually works.
+            </p>
+        </div>
+    </section>
+    
+    <!-- YOUR STORY -->
+    <section class="section-medium" style="background: var(--neutral-50);">
+        <div class="container narrow">
+            <h2 class="text-center">Why a Burnt-Out Nurse Is The LAST Person Who Should've Figured This Out (And Why That's Exactly Why I Did)</h2>
+            
+            <p style="font-size: 22px; margin-bottom: 24px; line-height: 1.7; font-weight: 600; color: var(--primary-900);">
+                Two years ago, I was working 12-hour night shifts in a psychiatric ward.
+            </p>
+            
+            <p style="font-size: 19px; margin-bottom: 24px; line-height: 1.9;">
+                Patients in crisis. Sleep schedule destroyed. Blood pressure so high my cardiologist said I was a walking stroke waiting to happen.
+            </p>
+            
+            <p style="font-size: 19px; margin-bottom: 24px; line-height: 1.9;">
+                I was desperate for a way out. So I did what everyone does:
+            </p>
+            
+            <p style="font-size: 19px; margin-bottom: 24px; line-height: 1.9;">
+                I bought courses. $997. $497. $197. I maxed out my credit card on systems that promised "passive income" and "financial freedom."
+            </p>
+            
+            <p style="font-size: 22px; margin-bottom: 24px; line-height: 1.8; font-weight: 700; color: var(--primary-900);">
+                Every single one failed.
+            </p>
+            
+            <div style="background: linear-gradient(135deg, #FEE2E2 0%, #FECACA 100%); padding: 32px; border-radius: 12px; margin: 32px 0; border-left: 4px solid #DC2626; box-shadow: 0 4px 12px rgba(220, 38, 38, 0.15);">
+                <p style="font-size: 24px; line-height: 1.6; text-align: center; font-weight: 700; color: #991B1B; margin-bottom: 0;">
+                    $3,000 spent.<br>
+                    $0.00 earned.
+                </p>
+            </div>
+            
+            <p style="font-size: 19px; margin-bottom: 24px; line-height: 1.9;">
+                I thought maybe I was the problem. Maybe I just wasn't cut out for this.
+            </p>
+            
+            <p style="font-size: 19px; margin-bottom: 32px; line-height: 1.9;">
+                <strong>Then I stopped listening to the course sellers... and started copying what the actual money-makers were doing.</strong>
+            </p>
+            
+            <p style="font-size: 20px; margin-bottom: 24px; line-height: 1.8; font-weight: 600; color: var(--primary-600);">
+                That's when I discovered it.
+            </p>
+            
+            <p style="font-size: 19px; margin-bottom: 24px; line-height: 1.9;">
+                Not another "system." A blind spot in how most people choose what to promote.
+            </p>
+            
+            <div style="background: linear-gradient(135deg, var(--primary-50) 0%, #DBEAFE 100%); padding: 48px; border-radius: 12px; margin: 40px 0; border: 3px solid var(--primary-600); box-shadow: 0 8px 24px rgba(30, 58, 138, 0.12);">
+                <p style="font-size: 19px; line-height: 1.9; margin-bottom: 8px; color: var(--primary-600); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; font-size: 14px;">
+                    Who I Am
+                </p>
+                
+                <p style="font-size: 32px; line-height: 1.3; font-weight: 800; color: var(--primary-900); margin-bottom: 24px;">
+                    Mike Marino
+                </p>
+                
+                <p style="font-size: 19px; line-height: 1.9; margin-bottom: 16px;">
+                    Within 8 months, my side business replaced my $92K nursing salary. I've had months over $18K.
+                </p>
+                
+                <p style="font-size: 19px; line-height: 1.9; margin-bottom: 0;">
+                    I still pick up nursing shifts—but now it's by choice, not necessity.
+                </p>
+            </div>
+            
+            <p style="font-size: 20px; margin-bottom: 32px; line-height: 1.8; font-weight: 600; text-align: center; color: var(--primary-900);">
+                And I'm going to show you exactly what I found.
+            </p>
+            
+            <p style="font-size: 19px; margin-bottom: 32px; line-height: 1.9;">
+                <strong>Maybe you're where I was:</strong>
+            </p>
+            
+            <ul style="list-style: none; padding: 0; margin-bottom: 32px; background: white; padding: 32px; border-radius: 12px; border-left: 4px solid var(--primary-600);">
+                <li style="padding: 12px 0; font-size: 18px; line-height: 1.7;">• Opening your laptop at 11 PM after the kids are asleep, wondering if this is finally the night you figure it out</li>
+                <li style="padding: 12px 0; font-size: 18px; line-height: 1.7;">• Logging into another dashboard showing $0.00 and feeling your stomach drop</li>
+                <li style="padding: 12px 0; font-size: 18px; line-height: 1.7;">• Avoiding your spouse's questions about "how it's going" because you don't want to admit you wasted money AGAIN</li>
+            </ul>
+            
+            <p style="font-size: 20px; margin-bottom: 32px; line-height: 1.8; font-weight: 600; text-align: center; color: var(--primary-900);">
+                I was there. And I'm going to show you the way out.
+            </p>
+            
+            <p style="font-size: 19px; margin-bottom: 24px; line-height: 1.9;">
+                Why did those courses fail? Because they all taught the same thing: promote low-value products. Post every day on social media. Hustle 24/7. Grow your following.
+            </p>
+            
+            <p style="font-size: 19px; margin-bottom: 24px; line-height: 1.9;">
+                I was already exhausted from nursing. Now I was exhausted from trying to build a business that required MORE hustle than my day job.
+            </p>
+            
+            <p style="font-size: 19px; margin-bottom: 40px; line-height: 1.9;">
+                <strong>Until I discovered a simple commission system and figured out the MATH that makes it work.</strong>
+            </p>
+            
+            <p style="font-size: 19px; margin-bottom: 24px; line-height: 1.9;">
+                <strong>Remember that math from earlier?</strong> Instead of needing 185 sales at $27 each, I only needed 10 sales at $500 each. Instead of working 60+ hours a month on content, I worked 8 hours. Instead of showing my face and "building my brand," I quietly connected buyers with solutions they were already looking for.
+            </p>
+            
+            <div style="background: var(--neutral-100); padding: 40px; border-radius: 12px; margin: 48px 0;">
+                <h3 style="font-size: 26px; margin-bottom: 20px; color: var(--primary-900); text-align: center;">And it actually worked:</h3>
+                <div style="height: 40px; background: linear-gradient(to right, var(--neutral-400) 0%, var(--success-500) 100%); border-radius: 20px; margin: 32px 0;"></div>
+                <div class="timeline-grid" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; font-size: 14px; font-weight: 600; text-align: center;">
+                    <div><strong style="display: block; font-size: 17px; margin-bottom: 4px; color: var(--primary-900);">Week 1</strong>$0</div>
+                    <div><strong style="display: block; font-size: 17px; margin-bottom: 4px; color: var(--primary-900);">Week 4</strong>$487</div>
+                    <div><strong style="display: block; font-size: 17px; margin-bottom: 4px; color: var(--primary-900);">Week 8</strong>$3,200</div>
+                    <div><strong style="display: block; font-size: 17px; margin-bottom: 4px; color: var(--primary-900);">Week 12</strong>$18,842</div>
+                    <div><strong style="display: block; font-size: 17px; margin-bottom: 4px; color: var(--primary-900);">Today</strong>$47,000+</div>
+                </div>
+                <p style="margin-top: 32px; font-weight: 600; text-align: center; font-size: 19px;">This isn't luck. This is a system. And it's sustainable.</p>
+            </div>
+            
+            <p style="font-size: 19px; line-height: 1.9;">
+                And now I'm going to show you exactly how I did it—so you can do it too, without the years of trial and error, without maxing out credit cards, and without sacrificing your sanity.
+            </p>
+        </div>
+    </section>
+    
+    <!-- THE SOLUTION -->
+    <section class="section-medium" style="background: white;">
+        <div class="container narrow">
+            <h2 class="text-center">The Simple Commission System That Changes Everything</h2>
+            
+            <p style="font-size: 20px; margin-bottom: 32px; line-height: 1.8; text-align: center; font-style: italic; color: var(--primary-600);">
+                Imagine waking up to a notification: <strong>$500 commission earned while you slept.</strong> Not $5. Not $27. $500. From ONE sale. That's what this system does.
+            </p>
+            
+            <p style="font-size: 19px; margin-bottom: 24px; line-height: 1.9;">
+                Here's what makes this different from everything else you've tried:
+            </p>
+            
+            <p style="font-size: 19px; margin-bottom: 24px; line-height: 1.9;">
+                Instead of grinding for pennies on low-value offers that take 185 sales to earn $5,000...
+            </p>
+            
+            <p style="font-size: 19px; margin-bottom: 24px; line-height: 1.9;">
+                You connect buyers with high-value solutions they're ALREADY looking for—and earn $500+ per sale.
+            </p>
+            
+            <p style="font-size: 22px; margin-bottom: 32px; line-height: 1.8; font-weight: 600; color: var(--primary-900); text-align: center;">
+                That means you only need 10 sales (not 185) to make $5,000.<br>
+                Same effort. 18x more money.
+            </p>
+            
+            <p style="font-size: 19px; margin-bottom: 24px; line-height: 1.9;">
+                <strong>You don't create the product. You don't handle customer service. You don't build a funnel.</strong>
+            </p>
+            
+            <p style="font-size: 19px; margin-bottom: 32px; line-height: 1.9;">
+                You simply connect people who have a problem with a solution they're already searching for. And when they buy, you earn a $500+ commission.
+            </p>
+            
+            <div style="background: white; padding: 40px; border-radius: 12px; border-left: 4px solid var(--success-500); box-shadow: 0 2px 12px rgba(0,0,0,0.06);">
+                <h3 style="font-size: 24px; margin-bottom: 20px; color: var(--primary-900);">Why This Works When Everything Else Fails:</h3>
+                <ul style="list-style: none; padding-left: 0;">
+                    <li style="padding: 12px 0 12px 36px; position: relative; font-size: 18px;">
+                        <span style="position: absolute; left: 0; color: var(--success-500); font-weight: bold; font-size: 22px;">✓</span>
+                        <strong>Higher commission per sale</strong> = fewer sales needed to hit your income goals
+                    </li>
+                    <li style="padding: 12px 0 12px 36px; position: relative; font-size: 18px;">
+                        <span style="position: absolute; left: 0; color: var(--success-500); font-weight: bold; font-size: 22px;">✓</span>
+                        <strong>People are already searching</strong> for these solutions (you don't need to "convince" anyone)
+                    </li>
+                    <li style="padding: 12px 0 12px 36px; position: relative; font-size: 18px;">
+                        <span style="position: absolute; left: 0; color: var(--success-500); font-weight: bold; font-size: 22px;">✓</span>
+                        <strong>No product creation</strong> = you can start TODAY with zero technical skills
+                    </li>
+                    <li style="padding: 12px 0 12px 36px; position: relative; font-size: 18px;">
+                        <span style="position: absolute; left: 0; color: var(--success-500); font-weight: bold; font-size: 22px;">✓</span>
+                        <strong>Free traffic methods</strong> = no expensive ads required
+                    </li>
+                    <li style="padding: 12px 0 12px 36px; position: relative; font-size: 18px;">
+                        <span style="position: absolute; left: 0; color: var(--success-500); font-weight: bold; font-size: 22px;">✓</span>
+                        <strong>Works in just 2 hours per week</strong> = perfect for busy people with jobs
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    
+    <!-- THE OFFER -->
+    <section class="section-medium" style="background: var(--neutral-50);">
+        <div class="container">
+            <h2 class="text-center">Introducing: The Commission Kickstart System</h2>
+            <p class="text-center" style="font-size: 20px; color: var(--neutral-600); margin-bottom: 60px; max-width: 800px; margin-left: auto; margin-right: auto;">The "Set It Up Once" System for Earning $500+ Commissions on Autopilot—Even If You've Been Burned by Every "Make Money Online" Promise Before</p>
+            
+            <div style="max-width: 700px; margin: 0 auto; background: var(--primary-50); padding: 48px; border-radius: 16px; text-align: center; box-shadow: 0 4px 20px rgba(30, 58, 138, 0.1); border: 2px solid var(--primary-600);">
+                <div style="font-size: 64px; margin-bottom: 24px;">📚</div>
+                <h3 style="font-size: 32px; margin-bottom: 20px; color: var(--primary-900);">What You'll Get:</h3>
+                <p style="font-size: 19px; line-height: 1.8; margin-bottom: 16px;">
+                    <strong>A complete training system</strong> that shows you exactly how to find high-commission offers, get approved, and start earning $500+ per sale using simple tools and free traffic methods.
+                </p>
+                <p style="font-size: 19px; line-height: 1.8;">
+                    No prior experience required. No paid ads needed. No showing your face or "building your brand."
+                </p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- MODULE BREAKDOWN (AI MENTION #4: Module 2 only) -->
+    <section class="section-medium" style="background: white;">
+        <div class="container">
+            <h2 class="text-center mb-48">Here's Everything Inside:</h2>
+            
+            <div class="value-grid">
+                <div class="value-card">
+                    <div class="icon">📚</div>
+                    <h3>MODULE 1: Why You've Been Set Up To Fail (And The Simple Math That Fixes It)</h3>
+                    <p class="duration">20 Minutes | Video Training</p>
+                    <ul>
+                        <li>Discover why every "guru" pushes small commissions—and why switching to $500 commissions cuts your workload by 95%</li>
+                        <li>The psychology of high-value buyers (they're NOT who you think)</li>
+                        <li>How to find $500-$2,000 commission offers in ANY niche</li>
+                        <li><strong>BONUS: How to spot recurring commission offers that pay you month after month</strong></li>
+                        <li>The "warm introduction" method that gets you approved instantly</li>
+                    </ul>
+                </div>
 
-        <div class="story-visual">
-            <div class="story-container">
-                <div class="story-grid">
-                    <div class="story-box old-story">
-                        <svg class="story-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M5 3v18l7-5 7 5V3z"/>
-                        </svg>
-                        <div class="story-label">The Old Way</div>
-                        <p class="story-text">To earn online income, I needed to create something. Build a product. Build an audience. Launch and hope people buy. Handle every question. Chase new sales every month. One customer = one payment.<span class="highlight">Exhausting.</span></p>
+                <div class="value-card">
+                    <div class="icon">🤖</div>
+                    <h3>MODULE 2: How AI Does 90% of the Work For You (Set It Up Once, Earn on Autopilot)</h3>
+                    <p class="duration">30 Minutes | Step-by-Step Walkthrough</p>
+                    <ul>
+                        <li>The exact AI tools that automate offer research, buyer discovery, and outreach (simple copy-paste prompts included)</li>
+                        <li>Complete setup walkthrough (even if you're tech-phobic)</li>
+                        <li>The "incognito income" method (no face, no brand building required)</li>
+                        <li>How to position yourself as a trusted connector (not a "salesperson")</li>
+                    </ul>
+                </div>
+
+                <div class="value-card">
+                    <div class="icon">🎯</div>
+                    <h3>MODULE 3: How to Find Ready-to-Buy Customers (No Ads, No Following Required)</h3>
+                    <p class="duration">25 Minutes | Actionable Strategies</p>
+                    <ul>
+                        <li>The 5 free traffic sources you can use TODAY</li>
+                        <li>How to find people who are ALREADY ready to buy (no convincing needed)</li>
+                        <li>The "helpful expert" positioning that attracts buyers naturally</li>
+                        <li>My exact 2-hour weekly routine that generates leads consistently</li>
+                    </ul>
+                </div>
+
+                <div class="value-card">
+                    <div class="icon">🚀</div>
+                    <h3>MODULE 4: Your First $500 Commission in 14 Days (Step-by-Step Blueprint)</h3>
+                    <p class="duration">15 Minutes | Day-by-Day Action Plan</p>
+                    <ul>
+                        <li>Your exact 14-day roadmap to your first $500 commission</li>
+                        <li>The 5 most common mistakes beginners make (and how to avoid them)</li>
+                        <li>What to do when someone says "I need to think about it"</li>
+                        <li>How to scale from $500/month to $5,000/month systematically</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- BONUSES (AI MENTION #5: One AI bonus) -->
+    <section class="section-medium" style="background: var(--neutral-50);">
+        <div class="container">
+            <h2 class="text-center" style="font-size: 42px; margin-bottom: 60px;">PLUS $455 in Additional Tools & Training</h2>
+            
+            <!-- First 4 Bonuses in Grid -->
+            <div class="bonus-grid">
+                <div style="background: white; padding: 32px; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); border: 2px solid var(--neutral-200);">
+                    <div style="font-size: 48px; text-align: center; margin-bottom: 20px;">💰</div>
+                    <h3 style="font-size: 20px; color: var(--primary-900); margin-bottom: 16px; text-align: center;">BONUS #1: Commission Calculator</h3>
+                    <p style="font-size: 16px; line-height: 1.7; margin-bottom: 16px;">
+                        Move the slider and watch the math transform. Compare 185 sales at $27 vs 10 sales at $500. Finally understand why you've been stuck.
+                    </p>
+                    <p style="font-weight: 700; color: var(--primary-600); font-size: 18px; text-align: center;">Value: $97</p>
+                </div>
+                
+                <div style="background: white; padding: 32px; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); border: 2px solid var(--neutral-200);">
+                    <div style="font-size: 48px; text-align: center; margin-bottom: 20px;">✅</div>
+                    <h3 style="font-size: 20px; color: var(--primary-900); margin-bottom: 16px; text-align: center;">BONUS #2: Setup Progress Tracker</h3>
+                    <p style="font-size: 16px; line-height: 1.7; margin-bottom: 16px;">
+                        Gamified checklist shows exactly what to do next. Check off tasks as you complete them. Never wonder "what do I do now?"
+                    </p>
+                    <p style="font-weight: 700; color: var(--primary-600); font-size: 18px; text-align: center;">Value: $67</p>
+                </div>
+                
+                <div style="background: white; padding: 32px; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); border: 2px solid var(--neutral-200);">
+                    <div style="font-size: 48px; text-align: center; margin-bottom: 20px;">🎯</div>
+                    <h3 style="font-size: 20px; color: var(--primary-900); margin-bottom: 16px; text-align: center;">BONUS #3: Traffic Source Quiz</h3>
+                    <p style="font-size: 16px; line-height: 1.7; margin-bottom: 16px;">
+                        Answer 5 questions, get personalized traffic recommendations. Matches your personality and available time.
+                    </p>
+                    <p style="font-weight: 700; color: var(--primary-600); font-size: 18px; text-align: center;">Value: $47</p>
+                </div>
+                
+                <div style="background: white; padding: 32px; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); border: 2px solid var(--neutral-200);">
+                    <div style="font-size: 48px; text-align: center; margin-bottom: 20px;">🔄</div>
+                    <h3 style="font-size: 20px; color: var(--primary-900); margin-bottom: 16px; text-align: center;">BONUS #4: Recurring Revenue Blueprint</h3>
+                    <p style="font-size: 16px; line-height: 1.7; margin-bottom: 16px;">
+                        Find products that pay you month after month, not just once. One connection = months of recurring payments. Build income that compounds while you sleep.
+                    </p>
+                    <p style="font-weight: 700; color: var(--primary-600); font-size: 18px; text-align: center;">Value: $147</p>
+                </div>
+            </div>
+            
+            <!-- Featured Bonus #5 - Full Width -->
+            <div style="max-width: 900px; margin: 0 auto;">
+                <div style="background: linear-gradient(135deg, #1E3A8A 0%, #2563EB 100%); padding: 48px; border-radius: 16px; box-shadow: 0 8px 32px rgba(30, 58, 138, 0.3); border: 3px solid #3B82F6; position: relative; overflow: hidden;">
+                    
+                    <!-- Featured Badge - Better Positioned -->
+                    <div style="display: inline-block; background: #F59E0B; color: white; padding: 6px 16px; border-radius: 20px; font-size: 12px; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 24px;">
+                        ⭐ FEATURED BONUS
                     </div>
                     
-                    <div class="story-box new-story">
-                        <svg class="story-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
-                        </svg>
-                        <div class="story-label">What Actually Works</div>
-                        <p class="story-text">Find products already selling. Connect people once. Collect payments every month they stay subscribed. No product creation. No customer support. Income compounds while I sleep. One connection = months of recurring payments.<span class="highlight">Freedom.</span></p>
+                    <div style="display: flex; align-items: center; gap: 32px; flex-wrap: wrap;">
+                        <!-- Icon -->
+                        <div style="font-size: 80px; flex-shrink: 0;">🤖</div>
+                        
+                        <!-- Content -->
+                        <div style="flex: 1; min-width: 300px;">
+                            <h3 style="font-size: 28px; color: white; margin-bottom: 16px; font-weight: 700;">BONUS #5: AI Prompt Library</h3>
+                            <p style="font-size: 18px; line-height: 1.7; margin-bottom: 20px; color: rgba(255,255,255,0.95);">
+                                67 copy-paste AI prompts that find high-commission offers, research buyers, and generate outreach templates in seconds. No tech skills needed.
+                            </p>
+                            <div style="display: flex; align-items: center; gap: 24px; flex-wrap: wrap;">
+                                <div style="background: rgba(255,255,255,0.2); padding: 12px 24px; border-radius: 8px; backdrop-filter: blur(10px);">
+                                    <span style="font-size: 14px; color: rgba(255,255,255,0.8); display: block; margin-bottom: 4px;">Value:</span>
+                                    <span style="font-size: 32px; font-weight: 900; color: #10B981;">$97</span>
+                                </div>
+                                <div style="color: rgba(255,255,255,0.9); font-size: 15px; line-height: 1.6;">
+                                    ✓ Works with ChatGPT & Claude<br>
+                                    ✓ Copy, paste, get results<br>
+                                    ✓ Save 10+ hours per week
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Decorative element -->
+                    <div style="position: absolute; bottom: -20px; right: -20px; width: 150px; height: 150px; background: rgba(255,255,255,0.05); border-radius: 50%; filter: blur(40px);"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- ORDER SECTION - Where CTAs Land -->
+    <section class="section-medium" id="order" style="background: var(--neutral-50);">
+        <div class="container" style="max-width: 700px;">
+            
+            <div style="text-align: center; margin-bottom: 32px;">
+                <div style="display: inline-block; background: #10B981; color: white; padding: 8px 20px; border-radius: 20px; font-size: 14px; font-weight: 600; margin-bottom: 16px;">
+                    LAUNCH SPECIAL - 96% OFF
+                </div>
+                <h2 style="font-size: 42px; margin-bottom: 16px; color: var(--primary-900);">Complete Your Order</h2>
+                <p style="font-size: 20px; color: var(--neutral-600);">Get instant access to Commission Kickstart</p>
+            </div>
+            
+            <!-- Order Box -->
+            <div style="background: white; padding: 48px; border-radius: 16px; box-shadow: 0 4px 24px rgba(0,0,0,0.1); border: 3px solid var(--primary-600); margin-bottom: 32px;">
+                
+                <div style="text-align: center; margin-bottom: 32px;">
+                    <h3 style="font-size: 28px; margin-bottom: 16px; color: var(--primary-900);">Commission Kickstart</h3>
+                    <div style="margin-bottom: 12px;">
+                        <span style="font-size: 18px; color: var(--neutral-600); display: block; margin-bottom: 4px;">Regular Price:</span>
+                        <span style="text-decoration: line-through; color: var(--neutral-400); font-size: 32px; font-weight: 700;">$397</span>
+                    </div>
+                    <div style="margin-bottom: 8px;">
+                        <span style="font-size: 18px; color: var(--neutral-600); display: block; margin-bottom: 8px;">Launch Special:</span>
+                        <span style="font-size: 64px; font-weight: 900; color: #10B981; line-height: 1;">$17</span>
+                    </div>
+                    <div style="background: #FEF3C7; padding: 12px 24px; border-radius: 8px; display: inline-block; margin-top: 12px;">
+                        <span style="color: #92400E; font-weight: 700; font-size: 18px;">You Save $380 (96% OFF)</span>
+                    </div>
+                </div>
+                
+                <!-- Why So Cheap Explanation -->
+                <div style="background: #EFF6FF; padding: 24px; border-radius: 8px; margin-bottom: 32px; border-left: 4px solid #2563EB;">
+                    <div style="font-weight: 700; margin-bottom: 12px; font-size: 18px; color: var(--primary-900);">Why Is This $17 Instead of $397?</div>
+                    <p style="font-size: 15px; line-height: 1.7; color: var(--neutral-700); margin-bottom: 12px;">
+                        <strong>Two reasons:</strong>
+                    </p>
+                    <p style="font-size: 15px; line-height: 1.7; color: var(--neutral-700); margin-bottom: 12px;">
+                        <strong>1)</strong> I'm testing a new onboarding sequence. I need 500 people to go through it and give feedback before I roll it out at full price.
+                    </p>
+                    <p style="font-size: 15px; line-height: 1.7; color: var(--neutral-700); margin-bottom: 12px;">
+                        <strong>2)</strong> Honestly? I make my real money FROM the system (recurring commissions, remember?), not from selling courses about the system. I'd rather have 500 people succeed at $17 than make $397 from people who can't afford to start.
+                    </p>
+                    <p style="font-size: 15px; line-height: 1.7; color: var(--neutral-700); margin-bottom: 0;">
+                        Once I hit 500 enrollments with the new sequence, price goes back to $397.
+                    </p>
+                </div>
+                
+                <div style="background: var(--neutral-50); padding: 24px; border-radius: 8px; margin-bottom: 32px; text-align: left;">
+                    <div style="font-weight: 600; margin-bottom: 16px; font-size: 18px; color: var(--primary-900);">You Get Instant Access To:</div>
+                    <div style="padding: 8px 0; font-size: 16px; line-height: 1.6;">✅ All 5 Training Modules ($197 value)</div>
+                    <div style="padding: 8px 0; font-size: 16px; line-height: 1.6;">✅ Commission Finder Tool ($97 value)</div>
+                    <div style="padding: 8px 0; font-size: 16px; line-height: 1.6;">✅ 90-Day Action Roadmap ($127 value)</div>
+                    <div style="padding: 8px 0; font-size: 16px; line-height: 1.6;">✅ Traffic Source Quiz ($47 value)</div>
+                    <div style="padding: 8px 0; font-size: 16px; line-height: 1.6;">✅ Daily Action Planner ($147 value)</div>
+                    <div style="padding: 8px 0; font-size: 16px; line-height: 1.6;">✅ AI Prompt Library ($97 value)</div>
+                    <div style="padding: 8px 0; font-size: 16px; line-height: 1.6; border-top: 2px solid var(--neutral-200); margin-top: 16px; padding-top: 16px; font-weight: 600; color: var(--primary-600);">Total Value: $712 | Your Price Today: $17</div>
+                </div>
+                
+                <!-- BUY BUTTON - Replace href with your actual payment link -->
+                <a href="#" class="cta-button" style="display: block; background: #10B981; color: white; text-align: center; padding: 24px; border-radius: 12px; text-decoration: none; font-weight: 700; font-size: 22px; margin-bottom: 24px; border: 3px solid #059669; box-shadow: 0 4px 16px rgba(16, 185, 129, 0.3);">
+                    Complete Purchase - $17 →
+                </a>
+                
+                <div style="text-align: center; color: var(--neutral-500); font-size: 14px; margin-bottom: 16px;">
+                    🔒 Secure checkout • All major cards accepted • Instant access
+                </div>
+                
+                <div style="background: #FFF9E6; padding: 20px; border-radius: 8px; border-left: 4px solid #F59E0B; text-align: center;">
+                    <div style="font-weight: 700; color: var(--primary-900); margin-bottom: 8px; font-size: 16px;">🛡️ Protected by 60-Day Money-Back Guarantee</div>
+                    <div style="font-size: 14px; color: var(--neutral-600);">Don't like it? Get a full refund within 60 days. No questions asked. Plus, keep the training forever.</div>
+                </div>
+                
+            </div>
+            
+            <div style="text-align: center; max-width: 600px; margin: 0 auto;">
+                <p style="font-size: 16px; color: var(--neutral-600); line-height: 1.7; margin-bottom: 16px;">
+                    <strong>What happens next:</strong> Click the button above → Complete secure checkout (30 seconds) → Get instant access to your training portal → Login details sent to your email immediately → Start Module 1 in 5 minutes
+                </p>
+                <p style="font-size: 14px; color: #DC2626; font-weight: 600; background: #FEE2E2; padding: 12px; border-radius: 6px;">
+                    ⚠️ Only 47 spots remaining at $17 (then price returns to $397)
+                </p>
+            </div>
+            
+        </div>
+    </section>
+    
+    <!-- READY TO START SECTION (Moved AFTER order) -->
+    <section class="section-medium" style="background: var(--primary-900); color: white;">
+        <div class="container">
+            <h2 class="text-center" style="color: white; font-size: 46px; margin-bottom: 32px;">Still Have Questions? Here's Everything You Get...</h2>
+            <p class="text-center" style="font-size: 22px; margin-bottom: 48px; max-width: 800px; margin-left: auto; margin-right: auto;">
+                Get instant access to the complete Commission Kickstart system for just $17
+            </p>
+            
+            <!-- WHAT'S INCLUDED BREAKDOWN -->
+            <div style="background: white; color: var(--neutral-900); padding: 48px; border-radius: 16px; max-width: 800px; margin: 0 auto 48px;">
+                <h3 style="text-align: center; font-size: 28px; color: var(--primary-900); margin-bottom: 32px;">Inside Commission Kickstart:</h3>
+                
+                <div style="margin-bottom: 24px; padding-bottom: 24px; border-bottom: 2px solid var(--neutral-200);">
+                    <div style="display: flex; align-items: start; gap: 16px;">
+                        <span style="color: var(--success-500); font-size: 24px; font-weight: bold; flex-shrink: 0;">✓</span>
+                        <div>
+                            <strong style="font-size: 18px; color: var(--primary-900);">All 5 Training Modules</strong>
+                            <p style="margin: 8px 0 0; font-size: 16px; color: var(--neutral-600);">Step-by-step video training showing you exactly how to find high-commission offers, connect with buyers, and earn $500+ per sale</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="margin-bottom: 24px; padding-bottom: 24px; border-bottom: 2px solid var(--neutral-200);">
+                    <div style="display: flex; align-items: start; gap: 16px;">
+                        <span style="color: var(--success-500); font-size: 24px; font-weight: bold; flex-shrink: 0;">✓</span>
+                        <div>
+                            <strong style="font-size: 18px; color: var(--primary-900);">Commission Finder Tool</strong>
+                            <p style="margin: 8px 0 0; font-size: 16px; color: var(--neutral-600);">AI-powered tool that finds vetted $500+ commission offers in any niche in under 10 minutes</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="margin-bottom: 24px; padding-bottom: 24px; border-bottom: 2px solid var(--neutral-200);">
+                    <div style="display: flex; align-items: start; gap: 16px;">
+                        <span style="color: var(--success-500); font-size: 24px; font-weight: bold; flex-shrink: 0;">✓</span>
+                        <div>
+                            <strong style="font-size: 18px; color: var(--primary-900);">90-Day Action Roadmap</strong>
+                            <p style="margin: 8px 0 0; font-size: 16px; color: var(--neutral-600);">Your complete day-by-day plan from $0 to your first $5,000 in commissions</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="margin-bottom: 24px; padding-bottom: 24px; border-bottom: 2px solid var(--neutral-200);">
+                    <div style="display: flex; align-items: start; gap: 16px;">
+                        <span style="color: var(--success-500); font-size: 24px; font-weight: bold; flex-shrink: 0;">✓</span>
+                        <div>
+                            <strong style="font-size: 18px; color: var(--primary-900);">Traffic Source Quiz</strong>
+                            <p style="margin: 8px 0 0; font-size: 16px; color: var(--neutral-600);">Personalized quiz that shows you the exact FREE traffic method that fits your schedule and skills</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="margin-bottom: 24px; padding-bottom: 24px; border-bottom: 2px solid var(--neutral-200);">
+                    <div style="display: flex; align-items: start; gap: 16px;">
+                        <span style="color: var(--success-500); font-size: 24px; font-weight: bold; flex-shrink: 0;">✓</span>
+                        <div>
+                            <strong style="font-size: 18px; color: var(--primary-900);">Daily Action Planner</strong>
+                            <p style="margin: 8px 0 0; font-size: 16px; color: var(--neutral-600);">Simple daily checklist (just 2 hours/week) that keeps you on track to your first commission</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="margin-bottom: 0;">
+                    <div style="display: flex; align-items: start; gap: 16px;">
+                        <span style="color: var(--success-500); font-size: 24px; font-weight: bold; flex-shrink: 0;">✓</span>
+                        <div>
+                            <strong style="font-size: 18px; color: var(--primary-900);">AI Prompt Library</strong>
+                            <p style="margin: 8px 0 0; font-size: 16px; color: var(--neutral-600);">Copy-paste AI prompts for finding offers, creating content, and connecting with buyers—no writing required</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="background: var(--primary-50); padding: 24px; border-radius: 12px; margin-top: 32px; text-align: center; border: 2px solid var(--primary-600);">
+                    <p style="font-size: 20px; font-weight: 700; color: var(--primary-900); margin: 0;">
+                        Total Value: $712 <span style="color: var(--neutral-400);">|</span> Your Price Today: <span style="color: var(--success-500);">$17</span>
+                    </p>
+                </div>
+            </div>
+            
+            <div style="background: rgba(255,255,255,0.1); padding: 32px; border-radius: 12px; max-width: 650px; margin: 0 auto 48px; text-align: left;">
+                <h4 style="text-align: center; margin-bottom: 24px; font-size: 20px; color: white;">What happens when you click below:</h4>
+                <div style="padding: 10px 0; font-size: 18px;">✓ Secure checkout (30 seconds)</div>
+                <div style="padding: 10px 0; font-size: 18px;">✓ Instant access to training portal</div>
+                <div style="padding: 10px 0; font-size: 18px;">✓ Email with login details arrives immediately</div>
+                <div style="padding: 10px 0; font-size: 18px;">✓ Start Module 1 in 5 minutes</div>
+                <div style="padding: 10px 0; font-size: 18px;">✓ Make your first $500 commission in 14 days</div>
+            </div>
+            
+            <div class="text-center">
+                <a href="#" class="cta-button" style="background: #10B981; color: white; border-color: #059669; font-size: 24px;">
+                    Yes! Lock In $17 Before Price Increases →
+                </a>
+            </div>
+            
+            <div style="margin-top: 48px; text-align: center;">
+                <p style="margin-bottom: 16px; font-size: 20px; font-weight: 600;">🛡️ Protected by 60-Day Money-Back Guarantee</p>
+                <p style="font-size: 18px; opacity: 0.95;">You risk nothing. Try it completely risk-free.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- GUARANTEE -->
+    <section class="section-medium" style="background: white;">
+        <div class="container">
+            <div class="guarantee">
+                <div class="shield">🛡️</div>
+                <h2>Here's My Guarantee—And Why I'm Not Worried</h2>
+                
+                <p style="font-size: 20px; margin-bottom: 32px;">Try this for 60 days.</p>
+                
+                <p style="font-size: 19px; margin-bottom: 24px;">If you haven't made your first $500 commission—or at MINIMUM, aren't in active conversation with serious buyers ready to buy—I'll refund every penny.</p>
+                
+                <p style="font-size: 19px; margin-bottom: 24px;">No forms. No hoops. One email.</p>
+                
+                <p style="font-size: 20px; font-weight: 600; margin-top: 40px; color: var(--primary-900);">Why am I so confident?</p>
+                
+                <p style="font-size: 19px; margin-bottom: 24px;">Because this system doesn't rely on luck. It relies on math. And math doesn't lie.</p>
+                
+                <p style="font-size: 19px; margin-bottom: 24px;">The only way you fail is if you don't actually DO the work.</p>
+                
+                <div style="margin-top: 48px; padding: 32px; background: white; border-radius: 12px; border: 2px solid var(--neutral-200);">
+                    <p style="font-size: 18px; font-style: italic; color: var(--neutral-700);">
+                        <strong>Think I'm full of it? Here's proof:</strong><br><br>
+                        Last year, I refunded 47 people. Why? Because they didn't do the work. And I don't keep money from people who don't show up.<br><br>
+                        If you follow the system and it doesn't work? You get your money back. Simple.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- REAL MEMBER VOICES -->
+    <section class="section-medium" style="background: white;">
+        <div class="container narrow">
+            <h2 class="text-center" style="margin-bottom: 24px;">You're Not Alone. This Is What Our Members Were Feeling...</h2>
+            <p style="text-align: center; font-size: 18px; color: var(--neutral-600); margin-bottom: 48px; font-style: italic;">
+                Before they found a system that actually works.
+            </p>
+            
+            <div style="display: grid; gap: 24px;">
+                <div style="background: var(--neutral-50); padding: 28px; border-radius: 12px; border-left: 4px solid var(--primary-600);">
+                    <p style="font-size: 17px; line-height: 1.8; color: var(--neutral-700); font-style: italic; margin-bottom: 12px;">
+                        "I've been an employee most of my life. I'm just... fed up. Fed up of not being where I want to be, doing what I want to do, when I want to do it. There's got to be another way."
+                    </p>
+                    <p style="font-size: 14px; font-weight: 600; color: var(--primary-900);">John, 46, Railway Technician</p>
+                </div>
+                
+                <div style="background: var(--neutral-50); padding: 28px; border-radius: 12px; border-left: 4px solid var(--primary-600);">
+                    <p style="font-size: 17px; line-height: 1.8; color: var(--neutral-700); font-style: italic; margin-bottom: 12px;">
+                        "This industry is full of scammers. They try to sell you their course before offering any value. Then you buy it for $100 or even $2000, and guess what? They tell you that you need another $4K in tools and training to make it actually work! It's infuriating."
+                    </p>
+                    <p style="font-size: 14px; font-weight: 600; color: var(--primary-900);">Marcus, 44, Father of 2</p>
+                </div>
+                
+                <div style="background: var(--neutral-50); padding: 28px; border-radius: 12px; border-left: 4px solid var(--primary-600);">
+                    <p style="font-size: 17px; line-height: 1.8; color: var(--neutral-700); font-style: italic; margin-bottom: 12px;">
+                        "I honestly have no idea how to get started. A lot of these programs assume you already know the basics. But I don't! I'm starting from zero here."
+                    </p>
+                    <p style="font-size: 14px; font-weight: 600; color: var(--primary-900);">Sarah, 59, Special Ed Teacher</p>
+                </div>
+                
+                <div style="background: var(--neutral-50); padding: 28px; border-radius: 12px; border-left: 4px solid var(--primary-600);">
+                    <p style="font-size: 17px; line-height: 1.8; color: var(--neutral-700); font-style: italic; margin-bottom: 12px;">
+                        "I'm 57. I won't be able to save my way to retirement. Right now I'm on the work-until-I-drop-dead plan, and that really sucks. Something's gotta change."
+                    </p>
+                    <p style="font-size: 14px; font-weight: 600; color: var(--primary-900);">David, 57, Engineer</p>
+                </div>
+                
+                <div style="background: var(--neutral-50); padding: 28px; border-radius: 12px; border-left: 4px solid var(--primary-600);">
+                    <p style="font-size: 17px; line-height: 1.8; color: var(--neutral-700); font-style: italic; margin-bottom: 12px;">
+                        "God, I hate information overload. It just... freezes me. I end up not doing anything because I don't know what to do next. Analysis paralysis is real."
+                    </p>
+                    <p style="font-size: 14px; font-weight: 600; color: var(--primary-900);">Tom, 41, IT Professional</p>
+                </div>
+            </div>
+            
+            <p style="text-align: center; font-size: 22px; font-weight: 700; color: var(--primary-900); margin-top: 48px; line-height: 1.6;">
+                These people figured it out.<br>
+                <span style="color: var(--primary-600);">They're now part of the 2,847 who escaped the $0.00 dashboard.</span><br>
+                You can too.
+            </p>
+        </div>
+    </section>
+    
+    <!-- TESTIMONIALS -->
+    <section class="section-medium" style="background: var(--neutral-50);">
+        <div class="container">
+            <h2 class="text-center mb-48">Real People. Real Results. Real Commissions.</h2>
+            
+            <div class="testimonial-grid">
+                <!-- FEATURED LARGE TESTIMONIAL -->
+                <div class="testimonial-card" style="grid-column: span 2; background: linear-gradient(135deg, #10B981 0%, #059669 100%); color: white; padding: 48px; border: none;">
+                    <div class="stars" style="color: #FCD34D;">⭐⭐⭐⭐⭐</div>
+                    <p class="quote" style="font-size: 22px; color: white; margin-bottom: 24px;">"I'd wasted over $2,000 on courses that promised easy money. Honestly thought this would be the same. But 11 days in? I made my first $487 commission. That's more than I made in 3 MONTHS with those other systems. Finally something that actually works."</p>
+                    <div style="display: flex; align-items: center; gap: 16px;">
+                        <div class="photo" style="background: rgba(255,255,255,0.2); border: 3px solid white;">SM</div>
+                        <div>
+                            <div class="name" style="color: white; font-size: 20px;">Sarah M.</div>
+                            <div class="title" style="color: rgba(255,255,255,0.9);">Former Teacher • Complete Beginner</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="photo" style="background: #3B82F6;">MR</div>
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p class="quote">"Two years. That's how long I tried making money online with zero results. Started thinking maybe I was just bad at this. But this system is different because you're actually HELPING people find solutions they want. Made $843 my second week. Finally feels sustainable instead of just... hustling for scraps."</p>
+                    <div class="name">Mike R.</div>
+                    <div class="title">Part-Time Dad • Struggled for 2 Years</div>
+                </div>
+
+                <div class="testimonial-card" style="border-left: 6px solid #8B5CF6;">
+                    <div class="photo" style="background: #8B5CF6;">JK</div>
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p class="quote" style="font-size: 17px;">"I'm a dental hygienist working full-time. Thought I didn't have time for a side business. But 2 hours a week? Yeah, I can do that. $2,100 in my first month while still working my job. This is the first thing that's actually worked without demanding my entire life."</p>
+                    <div class="name">Jennifer K.</div>
+                    <div class="title">Healthcare Worker • Super Busy</div>
+                </div>
+
+                <!-- MEDIUM EMPHASIS -->
+                <div class="testimonial-card" style="background: #FEF3C7; border: 2px solid #F59E0B;">
+                    <div style="background: #F59E0B; color: white; padding: 8px 16px; border-radius: 6px; display: inline-block; font-weight: 700; font-size: 13px; margin-bottom: 16px;">7 COURSES FAILED</div>
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p class="quote">"Seven different make money online courses over 3 years. All promised easy income. All failed. This one? No dancing on TikTok. No paid ads eating my budget. Just simple, strategic connecting. First $650 commission came in 19 days. Wish I'd found this years ago and saved myself the headache."</p>
+                    <div class="name">David L.</div>
+                    <div class="title">Corporate Employee • Tried Everything</div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="photo" style="background: #EC4899;">AT</div>
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p class="quote">"So burned out from the grind and hustle nonsense. This is the opposite. Strategic, sustainable, respects my time. And it actually WORKS. Best $17 I ever spent. Made it back 40x over in my first 90 days. Not going back to that hamster wheel."</p>
+                    <div class="name">Amanda T.</div>
+                    <div class="title">Freelancer • Done with Hustle Culture</div>
+                </div>
+
+                <div class="testimonial-card" style="border-left: 6px solid #F97316;">
+                    <div class="photo" style="background: #F97316;">RH</div>
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p class="quote">"I'm not tech-savvy. Like, at all. But the step-by-step walkthroughs made this so easy. If I can do this, literally anyone can. First commission was $650. I legitimately teared up when I saw it hit my account. Finally proved to myself this internet thing isn't just for young people."</p>
+                    <div class="name">Robert H.</div>
+                    <div class="title">Tradesman • Not Tech-Savvy</div>
+                </div>
+                
+                <!-- CALLOUT BOX STYLE -->
+                <div class="testimonial-card" style="background: #EFF6FF; border: 3px solid #2563EB;">
+                    <div style="background: #2563EB; color: white; padding: 8px 16px; border-radius: 6px; display: inline-block; font-weight: 700; font-size: 13px; margin-bottom: 16px;">ALMOST QUIT</div>
+                    <div class="stars" style="color: #2563EB;">⭐⭐⭐⭐⭐</div>
+                    <p class="quote" style="color: var(--neutral-900);">"First two weeks? Zero dollars. I was this close to quitting. Then I adjusted ONE thing Mike taught in Module 3 and boom, $650 in week 3. Week 6? $2,100. Sometimes you just need to trust the process and actually DO the work instead of overthinking everything."</p>
+                    <div class="name">Carlos M.</div>
+                    <div class="title">Sales Rep • Almost Gave Up</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- FAQ -->
+    <section class="section-medium faq-section" style="background: white;">
+        <div class="container">
+            <h2 class="text-center mb-48">Common Questions</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>I've been scammed before. How do I know this isn't another empty promise?</span>
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>You don't. Not yet. That's why I have a 60-day guarantee.</p>
+                    <p><strong>But here's what's different:</strong></p>
+                    <p>I'm not promising you'll make $10K your first month. I'm not saying this is "push-button easy." I'm saying if you put in 2 hours per week for 60 days following a proven system, you WILL see results.</p>
+                    <p>And if you don't? Keep your $17 and I'll refund you.</p>
+                    <p><strong>I'm betting on you showing up. The question is: are you ready to bet on yourself?</strong></p>
+                </div>
+            </div>
+            
+            <!-- AI MENTION #6 REMOVED - We already have 5, this would be overkill -->
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Do I need to be tech-savvy to use the AI tools?</span>
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Not at all. If you can copy and paste, you can use the AI tools I show you.</p>
+                    <p>I'm not teaching you to BUILD AI—I'm teaching you to USE it.</p>
+                    <p>Think of it like using Google. You don't need to know how the algorithm works. You just type in a search and get results.</p>
+                    <p>Same thing here. I give you the exact AI prompts, the exact tools, and the exact steps. You follow along. The tools do the heavy lifting.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Is this really "automated" or will I be working 40+ hours a week?</span>
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Let me be brutally honest: This is NOT "push-button, do-nothing" income. Anyone who promises that is lying to you.</p>
+                    <p><strong>Here's the real deal:</strong></p>
+                    <p><strong>SETUP:</strong> 2-4 hours initially to learn the system and set everything up</p>
+                    <p><strong>MAINTENANCE:</strong> 2 hours per week (seriously—that's it)</p>
+                    <p><strong>AUTOMATION:</strong> Once set up, the system works 24/7. Buyers find YOU through the methods I teach. No constant content creation. No showing your face. No building a huge following.</p>
+                    <p>You put in 2 hours per week connecting buyers with solutions. The system handles the rest.</p>
+                    <p>So yes—it's mostly automated. But no—it's not "do nothing and get rich." It's "do very little and earn very well."</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>What if I'm just not "good" at this stuff?</span>
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Define "good."</p>
+                    <p>Are you good at:</p>
+                    <p>(1) Following simple step-by-step instructions?<br>
+                    (2) Spending 2 hours per week consistently?<br>
+                    (3) Not giving up after one setback?</p>
+                    <p><strong>If yes to all three—you're "good enough."</strong></p>
+                    <p>This isn't about talent. It's about discipline. The system does the heavy lifting. You just have to show up.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Do I need prior experience or technical skills?</span>
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Absolutely not. In fact, most of my best students are complete beginners.</p>
+                    <p>Why? Because they don't have bad habits to unlearn. They just follow the system exactly as I teach it.</p>
+                    <p>I assume you're starting from ZERO—no email list, no social media following, no technical skills, no idea how any of this works.</p>
+                    <p>If you can check email and use Google, you can do this.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Do I need to invest in paid ads?</span>
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>No! This system focuses entirely on FREE traffic methods.</p>
+                    <p>I'll show you how to find people who are already actively looking for these high-value solutions—you just connect them with the right offer.</p>
+                    <p>Paid ads are optional down the road if you want to scale faster, but they're NOT required to get started and make your first several commissions.</p>
+                    <p>In fact, I recommend you DON'T use paid ads until you've made at least $5,000 in commissions using free traffic. Master the fundamentals first.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>How long until I see my first commission?</span>
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Most students see a clear path to their first commission within 7-14 days of starting the training.</p>
+                    <p>If you follow the system and put in the 2 hours per week I recommend, you should have your first commission within 30 days.</p>
+                    <p>Many students get it faster (some as quickly as 11 days), but I want to set realistic expectations.</p>
+                    <p><strong>This isn't a "make money overnight" scheme.</strong> It's a real business system that works when you work it.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Is this really just $17? What's the catch?</span>
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes, really $17 for everything listed on this page.</p>
+                    <p>At the end of the training, I'll offer you access to more advanced tools and training (optional) which is 100% your choice.</p>
+                    <p>But this $17 system is complete and stands alone. You can absolutely get your first commission using just what's included here.</p>
+                    <p><strong>Why so cheap?</strong> Because I remember being broke, burnt out, and desperate. I remember maxing out my credit card on courses that didn't work.</p>
+                    <p>I want this to be accessible to everyone, not just people who can afford $997 programs.</p>
+                    <p>Plus, I'm confident that once you see this works, you'll want to work with me in other ways. This is my "handshake" offer to you.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Can I really earn $500 per sale as a complete beginner?</span>
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes. $500 per sale is the commission you earn from high-value programs—not from selling your own product.</p>
+                    <p>These programs exist across hundreds of niches (business, health, finance, education, software, coaching, consulting, etc.).</p>
+                    <p>I show you exactly how to find them, how to get approved (even as a beginner), and how to connect with buyers effectively.</p>
+                    <p>Complete beginners CAN and DO earn $500+ commissions when they follow this system. I've seen it happen hundreds of times.</p>
+                    <p><strong>The math doesn't lie:</strong> it's WAY easier to make 10 sales of $500 (earning $5,000) than 185 sales of $27 (also earning $5,000).</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>What if I don't have time to start right now?</span>
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>The training is self-paced with lifetime access. Start today, finish next month. Or start next month. The system isn't going anywhere.</p>
+                    <p><strong>But here's the truth:</strong> The longer you wait, the longer you're stuck at $0.</p>
+                    <p>You don't need to finish the entire training before you start seeing results. Most students make their first commission after completing just Modules 1-3 (about 75 minutes of training).</p>
+                    <p>And remember—this only takes 2 hours per week AFTER setup. You can find 2 hours. You're probably spending that much time scrolling social media wondering how to make money online.</p>
+                    <p>The question isn't "do you have time?" The question is "are you ready to use your time differently?"</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- FINAL CTA -->
+    <section class="section-medium" style="background: var(--primary-900); color: white;">
+        <div class="container">
+            <h2 class="text-center" style="color: white; font-size: 48px; margin-bottom: 32px;">I'm Ready.<br>Show Me The System.</h2>
+            
+            <div class="text-center">
+                <a href="#order" class="cta-button" style="font-size: 24px; padding: 22px 60px; background: #10B981; color: white; border-color: #059669;">
+                    Yes! Give Me This System for $17 →
+                </a>
+            </div>
+            
+            <div style="margin-top: 56px; padding-top: 56px; border-top: 1px solid rgba(255,255,255,0.2); font-size: 17px; max-width: 750px; margin-left: auto; margin-right: auto;">
+                <p style="margin-bottom: 20px;"><strong>P.S.</strong> - Only 47 spots left at this price. After that, it goes to $97. Don't wait.</p>
+                
+                <p style="margin-bottom: 20px;"><strong>P.P.S.</strong> - Still on the fence? Email me at mike@marino-momentum.com. I'll personally answer your question within 24 hours. I'm a real person. I actually care.</p>
+                
+                <p><strong>P.P.P.S.</strong> - Every day you wait is another day you're leaving money on the table. The system is ready. The guarantee is ironclad. The question is: are you?</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- FOMO Notification Popup -->
+    <div id="fomo-notification" class="fomo-popup">
+        <div class="fomo-content">
+            <div class="fomo-icon">👤</div>
+            <div class="fomo-text">
+                <div class="fomo-name">Michael T. from Texas</div>
+                <div class="fomo-action">Joined 2 days ago</div>
+            </div>
+            <button class="fomo-close" onclick="closeFomo()">×</button>
+        </div>
+    </div>
+    
+    <!-- Exit Intent Popup -->
+    <div id="exit-intent-overlay" class="exit-overlay">
+        <div class="exit-popup">
+            <button class="exit-close" onclick="closeExitIntent()">×</button>
+            
+            <h2>WAIT! I Know Exactly Why You're Leaving...</h2>
+            
+            <p class="exit-intro">You've been burned by "make money online" courses before.</p>
+            
+            <p>Spent the money. Did the work. Saw $0.00.</p>
+            
+            <p>I get it. I was there.</p>
+            
+            <p style="font-weight: 600; color: #1E3A8A;">That's EXACTLY why I built this different:</p>
+            
+            <div class="exit-guarantees">
+                <div>
+                    <span class="check">✅</span>
+                    <div class="guarantee-text">
+                        <div class="guarantee-title">60-Day Money-Back Guarantee</div>
+                        <div class="guarantee-detail">Don't like it? Full refund. No questions asked. That's 8 full weeks to try completely risk-free.</div>
+                    </div>
+                </div>
+                <div>
+                    <span class="check">✅</span>
+                    <div class="guarantee-text">
+                        <div class="guarantee-title">60-Day Income Guarantee</div>
+                        <div class="guarantee-detail">Make $0 in 60 days? Get your refund PLUS $50 for your time.</div>
+                    </div>
+                </div>
+                <div>
+                    <span class="check">✅</span>
+                    <div class="guarantee-text">
+                        <div class="guarantee-title">Keep The Training Even If You Refund</div>
+                        <div class="guarantee-detail">The modules are yours forever, no matter what.</div>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div class="origin-story">
-            <div class="origin-story-label">From Burnt-Out Nurse To $18K/Month</div>
             
-            <p>Two years ago, I was a psychiatric nurse working brutal 12-hour shifts with patients in crisis. Completely exhausted. I was desperate for a way out, but I couldn't quit. I had bills, a family, responsibilities.</p>
+            <p class="exit-highlight">You literally cannot lose money on this.</p>
             
-            <p>Then I discovered something different: a company with a low-ticket product. Just $7. I didn't need to convince anyone. They did all the selling. I just connected people to the offer.</p>
+            <p class="exit-final">The only risk is closing this page and spending the next 2 months wondering "what if I had just tried?"</p>
             
-            <p>Here's what I didn't realize at first: that $7 product was a gateway. Once someone bought, the company upsold them into recurring monthly programs and high-ticket offers. I promoted one tiny $7 product and earned recurring <em>and</em> high-ticket commissions from the same customer.</p>
+            <button class="exit-cta" onclick="handleExitPopupCTA()">
+                OK, I'm Protected - Show Me How to Get Started
+                <span>→</span>
+            </button>
             
-            <div style="margin: 32px 0; padding: 24px; background: rgba(255, 255, 255, 0.5); border-left: 4px solid #f97316; border-radius: 8px;">
-                <p style="font-size: 1.35rem; font-weight: 700; color: #0f172a; margin: 0; line-height: 1.5; font-style: italic;">"I made one connection, and got paid month after month."</p>
-            </div>
-            
-            <p>Within 8 months, my recurring income replaced my $92K nursing salary. I've had months where I earned over <strong>$18K</strong>. I still pick up nursing shifts, but now it's by choice, not necessity.</p>
-        </div>
-
-        <div class="benefits-simple">
-            <h3>Here's What You Get When You Join</h3>
-            
-            <div class="benefit-item">
-                <div class="benefit-header">
-                    <svg class="benefit-check" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path d="M5 13l4 4L19 7"/>
-                    </svg>
-                    <div class="benefit-title">The Product Selection Formula (Free)</div>
-                </div>
-                <p class="benefit-description">Evaluate any product in under 10 minutes. Find your first winner within 48 hours. No more guessing or wasting time on products that don't convert.</p>
-            </div>
-
-            <div class="benefit-item">
-                <div class="benefit-header">
-                    <svg class="benefit-check" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path d="M5 13l4 4L19 7"/>
-                    </svg>
-                    <div class="benefit-title">70% Founding Member Discount</div>
-                </div>
-                <p class="benefit-description">Lock in the lowest price before the public launch in November 2025. After that, you'll pay full price or you'll still be stuck trading hours for dollars.</p>
-            </div>
-
-            <div class="benefit-item">
-                <div class="benefit-header">
-                    <svg class="benefit-check" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path d="M5 13l4 4L19 7"/>
-                    </svg>
-                    <div class="benefit-title">First Access When Doors Open</div>
-                </div>
-                <p class="benefit-description">Be first in line when the full system launches. Get access to the complete framework, templates, and private community before anyone else.</p>
-            </div>
-
-            <div style="text-align: center; margin-top: 40px;">
-                <a href="#" class="cta-button">
-                    Get The Product Selection Formula Free →
-                </a>
-            </div>
-        </div>
-
-        <div class="faq-section">
-            <h4>Your Questions Answered</h4>
-            
-            <div class="faq-item">
-                <div class="faq-icon">🗓️</div>
-                <p class="faq-question">When does the course launch?</p>
-                <p class="faq-answer">November 2025. But you don't have to wait. Join the priority list now and get instant access to the Product Selection Formula so you can start finding products this weekend. Plus, you'll lock in 70% off before the public launch.</p>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-icon">👥</div>
-                <p class="faq-question">What if I don't have an audience?</p>
-                <p class="faq-answer">You don't need one. The strategy focuses on connecting with people who are already searching for solutions. You're positioning yourself where buyers already are. I started with zero followers and still don't rely on social media for most of my income.</p>
-            </div>
-
-            <div class="faq-item">
-                <div class="faq-icon">💰</div>
-                <p class="faq-question">What do I get right now?</p>
-                <p class="faq-answer">The moment you join, you'll get instant access to the Product Selection Formula (worth $297). You'll also lock in 70% off the full course and be first in line when doors open in November 2025. Zero cost, zero obligation.</p>
-            </div>
-        </div>
-
-        <div class="final-cta-section">
-            <h2>Ready to Build Your Recurring Income?</h2>
-            <p>Stop trading time for money. Join free and get instant access to the Product Selection Formula. Identify your first product this weekend and lock in 70% off before November 2025.</p>
-            
-            <div class="final-cta-benefits">
-                <div class="final-cta-benefit">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path d="M5 13l4 4L19 7"/>
-                    </svg>
-                    <span>Instant Access</span>
-                </div>
-                <div class="final-cta-benefit">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path d="M5 13l4 4L19 7"/>
-                    </svg>
-                    <span>70% OFF</span>
-                </div>
-                <div class="final-cta-benefit">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path d="M5 13l4 4L19 7"/>
-                    </svg>
-                    <span>Zero Risk</span>
-                </div>
-            </div>
-
-            <a href="#" class="cta-button">
-                Get The Product Selection Formula Free →
-            </a>
-
-            <div class="trust-line" style="margin-top: 16px;">No credit card required • Instant access to bonus • Zero obligation</div>
-            
-            <p class="ps-note">P.S. The 70% discount is only for founding members who join before public launch. Once doors open, <strong>this offer is gone forever.</strong></p>
-        </div>
-
-        <div class="footer">
-            <p>© 2025 Mike Marino. All rights reserved.</p>
-            <div class="footer-links">
-                <a href="#" target="_blank">Privacy Policy</a>
-                <a href="#" target="_blank">Terms & Conditions</a>
-            </div>
+            <p class="exit-secure">
+                🔒 30-second secure checkout • 60-day money-back promise
+            </p>
         </div>
     </div>
+    
+    <footer>
+        <p>&copy; 2025 Commission Kickstart. All Rights Reserved.</p>
+        <div class="footer-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Contact</a>
+        </div>
+        <p style="font-size: 14px; margin-top: 32px;">Questions? Email: mike@marino-momentum.com</p>
+        <p style="font-size: 13px; margin-top: 24px; color: #9CA3AF; max-width: 800px; margin-left: auto; margin-right: auto; line-height: 1.6;">
+            <strong>Earnings Disclaimer:</strong> Results vary based on individual effort and application of the training. Average student earns $300-$800 in commissions within their first 90 days. Your results may be higher or lower. This is not a guarantee of income. Success requires consistent effort and following the system as taught.
+        </p>
+    </footer>
+    
+    <script>
+        window.addEventListener('scroll', function() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            document.getElementById('progressBar').style.width = (winScroll / height) * 100 + '%';
+        });
+        
+        function toggleFaq(element) {
+            const answer = element.nextElementSibling;
+            const icon = element.querySelector('.faq-icon');
+            document.querySelectorAll('.faq-answer').forEach(item => {
+                if (item !== answer) item.classList.remove('active');
+            });
+            document.querySelectorAll('.faq-icon').forEach(item => {
+                if (item !== icon) item.textContent = '+';
+            });
+            answer.classList.toggle('active');
+            icon.textContent = answer.classList.contains('active') ? '−' : '+';
+        }
+        
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+        
+        // Sticky Header Enhancement on Scroll
+        let lastScrollTop = 0;
+        const header = document.querySelector('header');
+        
+        window.addEventListener('scroll', function() {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // Add 'scrolled' class after scrolling past 200px
+            if (scrollTop > 200) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+            
+            lastScrollTop = scrollTop;
+        });
+        
+        // DYNAMIC SCARCITY SYSTEM (DEMO VERSION FOR CLIENT)
+        // NOTE: This is a simulation for demonstration purposes
+        // Production version should use real API integration with payment processor
+        
+        let currentSpots = 47;
+        let lastEnrollmentMinutes = 8;
+        
+        // Update timestamp display
+        function updateTimestamp() {
+            // Randomly pick new time between 2-14 minutes
+            lastEnrollmentMinutes = Math.floor(Math.random() * 12) + 2;
+            
+            const timeDisplay = lastEnrollmentMinutes === 1 ? 
+                "1 minute ago" : 
+                `${lastEnrollmentMinutes} minutes ago`;
+            
+            const activityElement = document.querySelector('.enrollment-activity');
+            if (activityElement) {
+                activityElement.innerHTML = `🔴 Last enrollment: ${timeDisplay}`;
+            }
+        }
+        
+        // Update spot counter
+        function updateSpotCounter() {
+            if (currentSpots > 1) {
+                currentSpots--;
+                
+                // Update all instances of spot counter on page
+                document.querySelectorAll('.enrollment-counter-text span:nth-child(2)').forEach(el => {
+                    el.textContent = currentSpots;
+                });
+                
+                // Update progress bar
+                const percentFilled = ((500 - currentSpots) / 500) * 100;
+                document.querySelectorAll('.enrollment-progress-bar').forEach(bar => {
+                    bar.style.width = percentFilled + '%';
+                });
+                
+                // Reset timestamp when spot decreases (someone just enrolled)
+                lastEnrollmentMinutes = Math.floor(Math.random() * 3) + 1; // 1-3 minutes ago
+                updateTimestamp();
+                
+                console.log(`[DEMO] Spots decreased to ${currentSpots}, timestamp reset to ${lastEnrollmentMinutes} min ago`);
+            }
+        }
+        
+        // Update timestamp independently every 2-4 minutes
+        function scheduleTimestampUpdate() {
+            const interval = Math.random() * 120000 + 120000; // 2-4 minutes
+            setTimeout(() => {
+                updateTimestamp();
+                console.log(`[DEMO] Timestamp updated to ${lastEnrollmentMinutes} minutes ago`);
+                scheduleTimestampUpdate(); // Schedule next update
+            }, interval);
+        }
+        
+        // Decrease spots every 4-7 minutes
+        function scheduleSpotDecrease() {
+            const interval = Math.random() * 180000 + 240000; // 4-7 minutes
+            setTimeout(() => {
+                updateSpotCounter();
+                scheduleSpotDecrease(); // Schedule next decrease
+            }, interval);
+        }
+        
+        // Start dynamic updates after 30 seconds (let user settle in)
+        setTimeout(() => {
+            console.log('[DEMO] Starting dynamic scarcity updates...');
+            scheduleTimestampUpdate();
+            scheduleSpotDecrease();
+        }, 30000);
+        
+        // FOMO Notification System
+        // IMPORTANT: Replace this array with YOUR REAL STUDENT DATA
+        // Using minutes ago (3-90 range) creates real-time urgency
+        const realStudents = [
+            { name: "Michael T.", location: "Texas", minutesAgo: 8 },
+            { name: "Sarah K.", location: "California", minutesAgo: 23 },
+            { name: "Jennifer M.", location: "Florida", minutesAgo: 14 },
+            { name: "David L.", location: "New York", minutesAgo: 47 },
+            { name: "Amanda T.", location: "Oregon", minutesAgo: 12 },
+            { name: "Robert H.", location: "Ohio", minutesAgo: 65 },
+            { name: "Carlos M.", location: "Illinois", minutesAgo: 31 },
+            { name: "Lisa W.", location: "Washington", minutesAgo: 19 },
+            { name: "James B.", location: "Georgia", minutesAgo: 54 },
+            { name: "Emily R.", location: "Arizona", minutesAgo: 7 },
+            { name: "Daniel K.", location: "Colorado", minutesAgo: 38 },
+            { name: "Rachel P.", location: "Virginia", minutesAgo: 76 },
+            { name: "Kevin S.", location: "Michigan", minutesAgo: 15 },
+            { name: "Nicole H.", location: "North Carolina", minutesAgo: 43 },
+            { name: "Brian M.", location: "Massachusetts", minutesAgo: 28 },
+            { name: "Jessica L.", location: "Tennessee", minutesAgo: 56 },
+            { name: "Christopher W.", location: "Wisconsin", minutesAgo: 11 },
+            { name: "Angela D.", location: "Minnesota", minutesAgo: 34 },
+            { name: "Thomas R.", location: "Missouri", minutesAgo: 62 },
+            { name: "Michelle S.", location: "Maryland", minutesAgo: 18 },
+            { name: "Joshua M.", location: "Indiana", minutesAgo: 45 },
+            { name: "Stephanie B.", location: "South Carolina", minutesAgo: 9 },
+            { name: "Matthew K.", location: "Alabama", minutesAgo: 71 },
+            { name: "Laura G.", location: "Louisiana", minutesAgo: 26 },
+            { name: "Andrew H.", location: "Kentucky", minutesAgo: 52 },
+            { name: "Rebecca T.", location: "Oklahoma", minutesAgo: 16 },
+            { name: "Ryan P.", location: "Connecticut", minutesAgo: 39 },
+            { name: "Melissa C.", location: "Iowa", minutesAgo: 68 },
+            { name: "Justin F.", location: "Arkansas", minutesAgo: 21 },
+            { name: "Amy W.", location: "Kansas", minutesAgo: 49 },
+            { name: "Brandon L.", location: "Nevada", minutesAgo: 13 },
+            { name: "Kimberly R.", location: "New Mexico", minutesAgo: 58 },
+            { name: "Jason D.", location: "Nebraska", minutesAgo: 24 },
+            { name: "Heather M.", location: "West Virginia", minutesAgo: 73 },
+            { name: "Eric S.", location: "Idaho", minutesAgo: 30 },
+            { name: "Amber B.", location: "Hawaii", minutesAgo: 85 },
+            { name: "Adam K.", location: "Maine", minutesAgo: 17 },
+            { name: "Crystal P.", location: "New Hampshire", minutesAgo: 44 },
+            { name: "Nicholas G.", location: "Rhode Island", minutesAgo: 67 },
+            { name: "Samantha H.", location: "Montana", minutesAgo: 10 },
+            { name: "Tyler W.", location: "Delaware", minutesAgo: 36 },
+            { name: "Brittany L.", location: "South Dakota", minutesAgo: 79 },
+            { name: "Aaron T.", location: "North Dakota", minutesAgo: 22 },
+            { name: "Tiffany R.", location: "Alaska", minutesAgo: 51 },
+            { name: "Jacob M.", location: "Vermont", minutesAgo: 14 },
+            { name: "Courtney S.", location: "Wyoming", minutesAgo: 63 },
+            { name: "Jonathan B.", location: "Pennsylvania", minutesAgo: 27 },
+            { name: "Danielle K.", location: "Utah", minutesAgo: 46 },
+            { name: "Steven P.", location: "Mississippi", minutesAgo: 81 },
+            { name: "Megan C.", location: "Texas", minutesAgo: 19 },
+            { name: "Benjamin F.", location: "California", minutesAgo: 55 },
+            { name: "Hannah W.", location: "Florida", minutesAgo: 8 },
+            { name: "Nathan L.", location: "New York", minutesAgo: 37 },
+            { name: "Ashley D.", location: "Illinois", minutesAgo: 70 },
+            { name: "Zachary H.", location: "Ohio", minutesAgo: 25 },
+            { name: "Kayla M.", location: "Georgia", minutesAgo: 48 },
+            { name: "Alexander R.", location: "North Carolina", minutesAgo: 12 },
+            { name: "Victoria S.", location: "Michigan", minutesAgo: 59 },
+            { name: "Ethan G.", location: "New Jersey", minutesAgo: 33 },
+            { name: "Alexis T.", location: "Virginia", minutesAgo: 77 },
+            { name: "Kyle B.", location: "Washington", minutesAgo: 20 },
+            { name: "Taylor K.", location: "Arizona", minutesAgo: 42 },
+            { name: "Jordan P.", location: "Massachusetts", minutesAgo: 15 },
+            { name: "Morgan W.", location: "Indiana", minutesAgo: 64 },
+            { name: "Dylan L.", location: "Tennessee", minutesAgo: 29 },
+            { name: "Destiny R.", location: "Missouri", minutesAgo: 53 },
+            { name: "Connor M.", location: "Maryland", minutesAgo: 11 },
+            { name: "Sierra H.", location: "Wisconsin", minutesAgo: 74 },
+            { name: "Austin S.", location: "Colorado", minutesAgo: 35 },
+            { name: "Savannah B.", location: "Minnesota", minutesAgo: 82 },
+            { name: "Luke D.", location: "South Carolina", minutesAgo: 18 },
+            { name: "Chloe K.", location: "Alabama", minutesAgo: 50 },
+            { name: "Gabriel T.", location: "Louisiana", minutesAgo: 23 },
+            { name: "Jasmine P.", location: "Kentucky", minutesAgo: 66 },
+            { name: "Isaac W.", location: "Oregon", minutesAgo: 31 },
+            { name: "Aaliyah G.", location: "Oklahoma", minutesAgo: 87 },
+            { name: "Caleb L.", location: "Connecticut", minutesAgo: 16 },
+            { name: "Mackenzie R.", location: "Iowa", minutesAgo: 45 },
+            { name: "Evan M.", location: "Arkansas", minutesAgo: 9 },
+            { name: "Gabriella H.", location: "Kansas", minutesAgo: 61 },
+            { name: "Mason S.", location: "Nevada", minutesAgo: 28 },
+            { name: "Sophia B.", location: "New Mexico", minutesAgo: 72 },
+            { name: "Logan F.", location: "Nebraska", minutesAgo: 38 },
+            { name: "Olivia K.", location: "West Virginia", minutesAgo: 84 },
+            { name: "Carter P.", location: "Idaho", minutesAgo: 21 },
+            { name: "Isabella C.", location: "Maine", minutesAgo: 57 },
+            { name: "Owen W.", location: "New Hampshire", minutesAgo: 13 },
+            { name: "Ava D.", location: "Montana", minutesAgo: 69 },
+            { name: "Landon T.", location: "Rhode Island", minutesAgo: 32 },
+            { name: "Emma L.", location: "Delaware", minutesAgo: 78 },
+            { name: "Hunter R.", location: "South Dakota", minutesAgo: 24 },
+            { name: "Abigail M.", location: "Vermont", minutesAgo: 47 },
+            { name: "Christian G.", location: "North Dakota", minutesAgo: 10 },
+            { name: "Madison H.", location: "Alaska", minutesAgo: 60 },
+            { name: "Wyatt S.", location: "Wyoming", minutesAgo: 36 },
+            { name: "Elizabeth B.", location: "Utah", minutesAgo: 80 },
+            { name: "Jaxon K.", location: "Mississippi", minutesAgo: 26 },
+            { name: "Avery P.", location: "Hawaii", minutesAgo: 54 },
+            { name: "Liam W.", location: "Pennsylvania", minutesAgo: 17 },
+            { name: "Grace F.", location: "Texas", minutesAgo: 43 },
+            { name: "Noah C.", location: "California", minutesAgo: 75 },
+            { name: "Ella T.", location: "Florida", minutesAgo: 30 },
+            { name: "Lucas L.", location: "New York", minutesAgo: 88 },
+            { name: "Aria R.", location: "Ohio", minutesAgo: 19 },
+            { name: "Jack M.", location: "Illinois", minutesAgo: 52 },
+            { name: "Scarlett D.", location: "Georgia", minutesAgo: 7 },
+            { name: "Henry H.", location: "North Carolina", minutesAgo: 65 },
+            { name: "Lily S.", location: "Michigan", minutesAgo: 34 },
+            { name: "Sebastian G.", location: "Virginia", minutesAgo: 83 },
+            { name: "Zoey B.", location: "Washington", minutesAgo: 22 },
+            { name: "Oliver K.", location: "Arizona", minutesAgo: 56 },
+            { name: "Nora P.", location: "Massachusetts", minutesAgo: 12 },
+            { name: "Leo W.", location: "New Jersey", minutesAgo: 68 },
+            { name: "Riley T.", location: "Tennessee", minutesAgo: 40 },
+            { name: "James L.", location: "Colorado", minutesAgo: 86 }
+        ];
+        
+        // Action variations to make notifications feel more organic
+        const actions = [
+            "claimed a spot",
+            "just joined",
+            "secured their spot",
+            "enrolled",
+            "grabbed a spot"
+        ];
+        
+        let currentStudentIndex = 0;
+        let fomoPopupCount = 0;
+        const maxFomoPopups = 5;
+        let shownStudents = [];
+        
+        function getNextStudent() {
+            // Filter out already shown students
+            let availableStudents = realStudents.filter(
+                student => !shownStudents.includes(student.name)
+            );
+            
+            // If we've shown everyone, reset
+            if (availableStudents.length === 0) {
+                shownStudents = [];
+                availableStudents = realStudents;
+            }
+            
+            // Pick random student from available pool
+            const randomIndex = Math.floor(Math.random() * availableStudents.length);
+            const student = availableStudents[randomIndex];
+            shownStudents.push(student.name);
+            
+            return student;
+        }
+        
+        function showFomoNotification() {
+            if (fomoPopupCount >= maxFomoPopups) return;
+            
+            const popup = document.getElementById('fomo-notification');
+            const student = getNextStudent();
+            const action = actions[Math.floor(Math.random() * actions.length)];
+            
+            // Format time display
+            let timeDisplay;
+            if (student.minutesAgo < 60) {
+                timeDisplay = `${student.minutesAgo} minute${student.minutesAgo > 1 ? 's' : ''} ago`;
+            } else {
+                const hours = Math.floor(student.minutesAgo / 60);
+                timeDisplay = `${hours} hour${hours > 1 ? 's' : ''} ago`;
+            }
+            
+            // Update content
+            document.querySelector('.fomo-name').textContent = 
+                `${student.name} from ${student.location}`;
+            document.querySelector('.fomo-action').textContent = 
+                `${action.charAt(0).toUpperCase() + action.slice(1)} ${timeDisplay}`;
+            
+            // Show popup
+            popup.style.display = 'block';
+            popup.style.animation = 'slideInLeft 0.5s ease-out';
+            fomoPopupCount++;
+            
+            // Auto-hide after 8 seconds
+            setTimeout(() => {
+                popup.style.animation = 'slideOutLeft 0.5s ease-out';
+                setTimeout(() => {
+                    popup.style.display = 'none';
+                }, 500);
+            }, 8000);
+        }
+        
+        function closeFomo() {
+            const popup = document.getElementById('fomo-notification');
+            popup.style.animation = 'slideOutLeft 0.5s ease-out';
+            setTimeout(() => {
+                popup.style.display = 'none';
+            }, 500);
+        }
+        
+        // Show first FOMO notification after 10 seconds
+        setTimeout(showFomoNotification, 10000);
+        
+        // Then show every 25 seconds (if under max count)
+        setInterval(() => {
+            if (fomoPopupCount < maxFomoPopups) {
+                showFomoNotification();
+            }
+        }, 25000);
+        
+        // Exit Intent System (Desktop Only)
+        let exitIntentShown = false;
+        let timeOnPage = 0;
+        
+        // Track time on page
+        setInterval(() => {
+            timeOnPage++;
+        }, 1000);
+        
+        // Desktop exit intent
+        if (window.innerWidth > 768) {
+            document.addEventListener('mouseout', function(e) {
+                // Only trigger if mouse leaves from top and user has been on page 30+ seconds
+                if (e.clientY < 10 && !exitIntentShown && timeOnPage > 30) {
+                    showExitIntent();
+                }
+            });
+        }
+        
+        function showExitIntent() {
+            const overlay = document.getElementById('exit-intent-overlay');
+            overlay.style.display = 'flex';
+            exitIntentShown = true;
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeExitIntent() {
+            document.getElementById('exit-intent-overlay').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Click outside to close exit intent
+        document.getElementById('exit-intent-overlay').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeExitIntent();
+            }
+        });
+        
+        // Handle exit intent CTA - scroll to order section
+        function handleExitPopupCTA() {
+            // Close popup with fade
+            const overlay = document.getElementById('exit-intent-overlay');
+            overlay.style.opacity = '0';
+            overlay.style.transition = 'opacity 0.3s ease-out';
+            
+            setTimeout(() => {
+                closeExitIntent();
+                overlay.style.opacity = '1';
+                overlay.style.transition = '';
+                
+                // Smooth scroll to order section
+                const orderSection = document.querySelector('#order');
+                if (orderSection) {
+                    orderSection.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    
+                    // After scroll completes, pulse the CTA button
+                    setTimeout(() => {
+                        const ctaButtons = document.querySelectorAll('#order .cta-button');
+                        ctaButtons.forEach(btn => {
+                            btn.classList.add('pulse-attention');
+                            
+                            // Remove pulse after 3 cycles (1.8 seconds)
+                            setTimeout(() => {
+                                btn.classList.remove('pulse-attention');
+                            }, 1800);
+                        });
+                    }, 1000);
+                } else {
+                    // Fallback: scroll to first CTA if no #order section
+                    const firstCTA = document.querySelector('.cta-button');
+                    if (firstCTA) {
+                        firstCTA.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'center'
+                        });
+                        setTimeout(() => {
+                            firstCTA.classList.add('pulse-attention');
+                            setTimeout(() => {
+                                firstCTA.classList.remove('pulse-attention');
+                            }, 1800);
+                        }, 1000);
+                    }
+                }
+            }, 300);
+        }
+    </script>
 </body>
 </html>
